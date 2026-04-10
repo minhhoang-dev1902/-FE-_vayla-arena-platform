@@ -5,6 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+	/* Desktop: max width of the main app column (Tailwind max-w-7xl = 80rem) */
+	--app-view-max-width: 80rem;
 	--background: rgb(255, 255, 255);
 	--foreground: rgb(10, 10, 10);
 	--card: rgb(255, 255, 255);

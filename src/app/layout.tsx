@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import { AppShell } from "@/share/components/layout/app-shell";
 import { allerta, averta, inter } from "@/share/lib/fonts";
 import "./globals.css";
 
@@ -15,7 +17,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${inter.variable} ${allerta.variable} ${averta.variable} antialiased`}>
-				{children}
+				<AppShell>{children}</AppShell>
 			</body>
 		</html>
 	);
