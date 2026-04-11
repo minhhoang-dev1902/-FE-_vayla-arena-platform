@@ -5,14 +5,11 @@ import { cn } from "@/share/lib/utils";
 
 type AppShellProps = {
 	className?: string;
+	header?: ReactNode;
 	children: ReactNode;
 };
 
-/**
- * Mobile-first: full width on small viewports.
- * From `lg` up, the app is centered with a max width; horizontal overflow is white.
- */
-export function AppShell({ children, className }: AppShellProps) {
+export function AppShell({ children, className, header }: AppShellProps) {
 	return (
 		<div className="min-h-dvh bg-black ">
 			<div
@@ -22,7 +19,7 @@ export function AppShell({ children, className }: AppShellProps) {
 					className,
 				)}
 			>
-				<AppShellChrome>{children}</AppShellChrome>
+				<AppShellChrome header={header}>{children}</AppShellChrome>
 			</div>
 		</div>
 	);

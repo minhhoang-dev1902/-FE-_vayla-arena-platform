@@ -5,7 +5,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-	/* Desktop: max width of the main app column (Tailwind max-w-7xl = 80rem) */
 	--app-view-max-width: 80rem;
 	--background: rgb(255, 255, 255);
 	--foreground: rgb(10, 10, 10);
@@ -151,7 +150,8 @@
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
 
-	--font-sans: var(--ff-averta); /* ← Averta là font mặc định */
+	--font-sans: var(--ff-averta);
+	/* ← Averta là font mặc định */
 	--font-mono:
 		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
 		"Courier New", monospace;
@@ -179,7 +179,8 @@
 
 	body {
 		@apply bg-background text-foreground;
-		font-family: var(--ff-averta), sans-serif; /* body → averta */
+		font-family: var(--ff-averta), sans-serif;
+		/* body → averta */
 	}
 
 	h1,
@@ -188,6 +189,7 @@
 	h4,
 	h5,
 	h6 {
-		font-family: var(--ff-allerta), sans-serif; /* heading → allerta */
+		font-family: var(--ff-allerta), sans-serif;
+		/* heading → allerta */
 	}
 }
