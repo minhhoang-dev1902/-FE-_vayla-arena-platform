@@ -43,12 +43,8 @@
 		"typescript": "^5"
 	},
 	"lint-staged": {
-		"*.{js,jsx,ts,tsx}": [
-			"biome check --write --unsafe",
-			"biome check"
-		],
-		"*.{json,css,md}": [
-			"biome format --write"
+		"*.{js,jsx,mjs,cjs,ts,tsx,json,css,md,mdx}": [
+			"biome check --write --unsafe --no-errors-on-unmatched"
 		]
 	},
 	"engines": {

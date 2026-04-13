@@ -14,16 +14,16 @@ export type FundingSlidersProps = {
 	funding_data?: TFunding;
 };
 
-export function FundingSliders({ funding_data, className }: FundingSlidersProps) {
-	const { end_date, title } = funding_data || {};
+export function FundingSliders({ className, funding_data }: FundingSlidersProps) {
+	const { title, end_date } = funding_data || {};
 	const end = parseOptionalEndDate(end_date, DEFAULT_ENDS_AT);
 
 	return (
 		<div className={cn("relative h-full w-full overflow-hidden", className)}>
 			<div
 				aria-hidden
-				className="absolute inset-0 scale-110 bg-cover bg-center blur-[5px]"
 				style={{ backgroundImage: `url(${thumbnail.src})` }}
+				className="absolute inset-0 scale-110 bg-cover bg-center blur-[5px]"
 			/>
 			<div aria-hidden className="absolute inset-0 bg-black/45" />
 

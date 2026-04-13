@@ -9,7 +9,7 @@ type AppShellProps = {
 	children: ReactNode;
 };
 
-export function AppShell({ children, className, header }: AppShellProps) {
+export function AppShell({ header, children, className }: AppShellProps) {
 	return (
 		<div className={cn("min-h-dvh w-full bg-white dark:bg-neutral-950", className)}>
 			<AppShellChrome header={header}>{children}</AppShellChrome>
