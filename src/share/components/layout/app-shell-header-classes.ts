@@ -1,3 +1,10 @@
-/** Dùng chung cho mọi header trong shell (cùng chiều cao với overlay sidebar `top-14`). */
-export const appShellHeaderRootClassName =
-	"sticky top-0 z-60 flex h-14 shrink-0 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur supports-backdrop-filter:bg-background/80";
+export const appShellHeaderOuterClassName =
+	"sticky top-0 z-[60] w-full shrink-0 border-b border-white/10 bg-black text-white";
+
+export const appShellHeaderInnerClassName =
+	"relative flex h-14 w-full items-center justify-between gap-3 px-4 sm:px-6";
+
+export const appShellHeaderNavClassName =
+	"absolute inset-y-0 left-1/2 z-[1] hidden min-w-0 -translate-x-1/2 lg:flex lg:items-center lg:justify-center";
+
+export const appShellHeaderRootClassName = `${appShellHeaderOuterClassName}`;

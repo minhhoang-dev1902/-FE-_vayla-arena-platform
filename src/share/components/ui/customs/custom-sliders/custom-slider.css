@@ -1,0 +1,168 @@
+.embla {
+	max-width: 100%;
+	margin: auto;
+
+	--slide-height: 19rem;
+	--slide-spacing: 0;
+	--slide-size: 100%;
+
+	--dot-hit: 1.5rem;
+	--dot-ring: 0.56rem;
+	--dot-color-idle: #9ca3af;
+	--dot-color-active: #ffffff;
+}
+
+.embla__stage {
+	position: relative;
+	width: 100%;
+}
+
+.embla__viewport {
+	overflow: hidden;
+}
+
+.embla__container {
+	display: flex;
+	touch-action: pan-y pinch-zoom;
+	margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.embla__slide {
+	transform: translate3d(0, 0, 0);
+	flex: 0 0 var(--slide-size);
+	min-width: 0;
+	padding-left: var(--slide-spacing);
+}
+
+.embla__slide__number {
+	border: 0.2rem solid var(--detail-medium-contrast);
+	border-radius: 1.8rem;
+	font-size: 4rem;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: var(--slide-height);
+	user-select: none;
+}
+
+.embla__buttons {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	/* padding: 0 0.1rem; */
+	pointer-events: none;
+}
+
+.embla__buttons .embla__button {
+	pointer-events: auto;
+	flex-shrink: 0;
+}
+
+.embla__button {
+	-webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+	-webkit-appearance: none;
+	appearance: none;
+	box-sizing: border-box;
+	background-color: transparent;
+	touch-action: manipulation;
+	text-decoration: none;
+	cursor: pointer;
+	margin: 0;
+	width: 2.35rem;
+	height: 2.35rem;
+	padding: 0;
+	border: 0.1rem solid rgba(255, 255, 255, 0.45);
+	z-index: 1;
+	border-radius: 9999px;
+	color: #ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: rotate(0deg);
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease,
+		padding 0.2s ease,
+		border-color 0.2s ease;
+}
+
+.embla__button:not(.embla__button--disabled):hover {
+	background-color: var(--color-primary);
+	color: var(--color-primary-foreground);
+	padding: 0.2rem;
+	border-color: transparent;
+	border-radius: 9999px;
+}
+
+.embla__button--disabled {
+	color: rgba(255, 255, 255, 0.35);
+	border-color: rgba(255, 255, 255, 0.2);
+	cursor: not-allowed;
+}
+
+.embla__button--disabled:hover {
+	background-color: transparent;
+	color: rgba(255, 255, 255, 0.35);
+	padding: 0;
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
+.embla__button__svg {
+	width: 42%;
+	height: 42%;
+}
+
+/* Giữa đáy, đè lên slider (cùng .embla__stage) */
+.embla__dots {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0.5rem;
+	z-index: 3;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0 0.5rem;
+	pointer-events: none;
+}
+
+.embla__dot {
+	-webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	touch-action: manipulation;
+	display: inline-flex;
+	text-decoration: none;
+	cursor: pointer;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	width: var(--dot-hit);
+	height: var(--dot-hit);
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	position: relative;
+	pointer-events: auto;
+}
+
+/* Chấm đặc: xám mặc định, trắng khi selected */
+.embla__dot:before {
+	content: "";
+	position: absolute;
+	width: var(--dot-ring);
+	height: var(--dot-ring);
+	border-radius: 50%;
+	background-color: var(--dot-color-idle);
+}
+
+.embla__dot--selected:before {
+	background-color: var(--dot-color-active);
+}

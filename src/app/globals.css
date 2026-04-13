@@ -59,6 +59,8 @@
 	--shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
 	--tracking-normal: 0em;
 	--spacing: 0.25rem;
+	/* Thanh cuộn viewport + vùng .scrollbar-app (WebKit; Firefox: thin) */
+	--app-scrollbar-width: 2px;
 }
 
 .dark {
@@ -183,6 +185,43 @@
 		/* body → averta */
 	}
 
+	/* Scrollbar viewport — thường là `html`, không phải `main` */
+	html {
+		scrollbar-width: thin;
+		scrollbar-color: color-mix(
+				in srgb,
+				var(--muted-foreground) 38%,
+				transparent
+			)
+			transparent;
+	}
+
+	html::-webkit-scrollbar {
+		width: var(--app-scrollbar-width);
+		height: var(--app-scrollbar-width);
+	}
+
+	html::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	html::-webkit-scrollbar-thumb {
+		background-color: color-mix(
+			in srgb,
+			var(--muted-foreground) 40%,
+			transparent
+		);
+		border-radius: 9999px;
+	}
+
+	html::-webkit-scrollbar-thumb:hover {
+		background-color: color-mix(
+			in srgb,
+			var(--muted-foreground) 58%,
+			transparent
+		);
+	}
+
 	h1,
 	h2,
 	h3,
@@ -191,5 +230,44 @@
 	h6 {
 		font-family: var(--ff-allerta), sans-serif;
 		/* heading → allerta */
+	}
+}
+
+@layer utilities {
+	/** Thanh cuộn mảnh trong khối overflow (Chrome / Edge / Safari + Firefox). */
+	.scrollbar-app {
+		scrollbar-width: thin;
+		scrollbar-color: color-mix(
+				in srgb,
+				var(--muted-foreground) 38%,
+				transparent
+			)
+			transparent;
+	}
+
+	.scrollbar-app::-webkit-scrollbar {
+		width: var(--app-scrollbar-width);
+		height: var(--app-scrollbar-width);
+	}
+
+	.scrollbar-app::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.scrollbar-app::-webkit-scrollbar-thumb {
+		background-color: color-mix(
+			in srgb,
+			var(--muted-foreground) 40%,
+			transparent
+		);
+		border-radius: 9999px;
+	}
+
+	.scrollbar-app::-webkit-scrollbar-thumb:hover {
+		background-color: color-mix(
+			in srgb,
+			var(--muted-foreground) 58%,
+			transparent
+		);
 	}
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { Button } from "@/share/components/ui/button";
 import { useAppShellNav } from "@/share/components/layout/app-shell-nav-context";
+import { Button } from "@/share/components/ui/button";
 
 type MobileNavTriggerProps = {
 	className?: string;

@@ -9,6 +9,18 @@
 	"files": {
 		"ignoreUnknown": false
 	},
+	"overrides": [
+		{
+			"includes": ["src/share/components/ui/index.ts"],
+			"linter": {
+				"rules": {
+					"performance": {
+						"noBarrelFile": "off"
+					}
+				}
+			}
+		}
+	],
 	"formatter": {
 		"enabled": true,
 		"lineWidth": 100,

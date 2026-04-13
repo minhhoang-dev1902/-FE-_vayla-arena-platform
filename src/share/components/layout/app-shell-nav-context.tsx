@@ -51,11 +51,7 @@ export function AppShellNavProvider({ children }: { children: ReactNode }) {
 		[open, panelId],
 	);
 
-	return (
-		<AppShellNavContext.Provider value={value}>
-			{children}
-		</AppShellNavContext.Provider>
-	);
+	return <AppShellNavContext.Provider value={value}>{children}</AppShellNavContext.Provider>;
 }
 
 export function useAppShellNav() {
