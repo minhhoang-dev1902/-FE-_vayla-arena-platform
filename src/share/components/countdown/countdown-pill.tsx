@@ -11,14 +11,14 @@ export type CountdownPillProps = {
 
 function SquareColon() {
 	return (
-		<div className="flex flex-col items-center justify-center gap-1" aria-hidden>
+		<div className="flex flex-col items-center justify-center gap-1">
 			<span className="size-1 rounded-[1px] bg-white shadow-[0_0_1px_rgba(255,255,255,0.8)]" />
 			<span className="size-1 rounded-[1px] bg-white shadow-[0_0_1px_rgba(255,255,255,0.8)]" />
 		</div>
 	);
 }
 
-function TimeBlock({ value, unit }: { value: number; unit: string }) {
+function TimeBlock({ unit, value }: { unit: string; value: number }) {
 	const shown = unit === "D" ? String(value) : String(value).padStart(2, "0");
 	return (
 		<span className="flex items-end gap-0.5">
@@ -37,7 +37,6 @@ function formatAriaLabel(parts: { d: number; h: number; m: number; s: number }):
 }
 
 /**
- * Đếm ngược dạng viên thuốc (D : H : M : S), cập nhật mỗi giây.
  */
 export function CountdownPill({ end, className }: CountdownPillProps) {
 	const parts = useCountdown(end);
@@ -49,7 +48,6 @@ export function CountdownPill({ end, className }: CountdownPillProps) {
 					"mx-auto h-14 max-w-xl rounded-full border border-white/45 bg-white/25 backdrop-blur-xs backdrop-saturate-150",
 					className,
 				)}
-				aria-hidden
 			/>
 		);
 	}
@@ -60,17 +58,17 @@ export function CountdownPill({ end, className }: CountdownPillProps) {
 			aria-live="polite"
 			aria-label={formatAriaLabel(parts)}
 			className={cn(
-				"mx-auto inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-white/45 bg-white/25 px-12 py-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-xs backdrop-saturate-150 md:gap-4 md:px-8 md:py-3",
+				"mx-auto inline-flex max-w-[300px] items-center justify-center gap-3 rounded-full border border-white/45 bg-white/25 px-12 py-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-xs backdrop-saturate-150 md:gap-4 md:px-8 md:py-3",
 				className,
 			)}
 		>
-			<TimeBlock value={parts.d} unit="D" />
+			<TimeBlock unit="D" value={parts.d} />
 			<SquareColon />
-			<TimeBlock value={parts.h} unit="H" />
+			<TimeBlock unit="H" value={parts.h} />
 			<SquareColon />
-			<TimeBlock value={parts.m} unit="M" />
+			<TimeBlock unit="M" value={parts.m} />
 			<SquareColon />
-			<TimeBlock value={parts.s} unit="S" />
+			<TimeBlock unit="S" value={parts.s} />
 		</div>
 	);
 }

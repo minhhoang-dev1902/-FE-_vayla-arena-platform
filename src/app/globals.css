@@ -61,6 +61,10 @@
 	--spacing: 0.25rem;
 	/* Thanh cuộn viewport + vùng .scrollbar-app (WebKit; Firefox: thin) */
 	--app-scrollbar-width: 2px;
+
+	--accent-secondary: #6ffff4;
+	--text-subtle: #fff9f9;
+	--dark-primary: #003531;
 }
 
 .dark {
@@ -172,6 +176,10 @@
 	--shadow-lg: var(--shadow-lg);
 	--shadow-xl: var(--shadow-xl);
 	--shadow-2xl: var(--shadow-2xl);
+
+	--color-accent-secondary: var(--accent-secondary);
+	--color-text-subtle: var(--text-subtle);
+	--color-dark-primary: var(--dark-primary);
 }
 
 @layer base {
