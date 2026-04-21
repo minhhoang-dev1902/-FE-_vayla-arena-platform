@@ -29,9 +29,9 @@ export function FundingSliders({ funding_data, className }: FundingSlidersProps)
 
 			<div className="relative flex h-full">
 				<div className="flex flex-col items-center justify-start w-full gap-6 absolute top-30 left-0 right-0">
-					<h1 className="text-center text-balance text-2xl font-semibold tracking-wide md:text-3xl text-white">
+					<p className="text-center text-balance text-2xl font-semibold tracking-wide md:text-3xl text-white">
 						{title}
-					</h1>
+					</p>
 
 					<CountdownPill end={end} />
 				</div>
