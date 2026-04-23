@@ -7,7 +7,7 @@
 :root {
 	--app-view-max-width: 80rem;
 	--background: rgb(255, 255, 255);
-	--foreground: rgb(10, 10, 10);
+	--foreground: #c9ced5;
 	--card: rgb(255, 255, 255);
 	--card-foreground: rgb(10, 10, 10);
 	--popover: rgb(255, 255, 255);
@@ -65,6 +65,7 @@
 	--accent-secondary: #6ffff4;
 	--text-subtle: #fff9f9;
 	--dark-primary: #003531;
+	--light-green: #ccfbf1;
 }
 
 .dark {
@@ -180,6 +181,7 @@
 	--color-accent-secondary: var(--accent-secondary);
 	--color-text-subtle: var(--text-subtle);
 	--color-dark-primary: var(--dark-primary);
+	--color-light-green: var(--light-green);
 }
 
 @layer base {

@@ -58,7 +58,7 @@ export function CountdownPill({ end, className }: CountdownPillProps) {
 			aria-live="polite"
 			aria-label={formatAriaLabel(parts)}
 			className={cn(
-				"mx-auto inline-flex max-w-[300px] items-center justify-center gap-3 rounded-full border border-white/45 bg-white/25 px-12 py-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-xs backdrop-saturate-150 md:gap-4 md:px-8 md:py-3",
+				"mx-auto inline-flex  items-center justify-center gap-3 rounded-full border border-white/45 bg-white/25 px-8 py-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.45)] backdrop-blur-xs backdrop-saturate-150 md:gap-4 md:px-8 md:py-3",
 				className,
 			)}
 		>

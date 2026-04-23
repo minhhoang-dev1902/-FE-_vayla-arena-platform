@@ -32,14 +32,13 @@ export function FundingSliders({ className, funding_data }: FundingSlidersProps)
 					<p className="text-center text-balance text-3xl font-semibold tracking-wide md:text-3xl text-white">
 						{title}
 					</p>
-
 					<CountdownPill end={end} />
 				</div>
 
 				<div className="flex justify-center absolute bottom-15 left-0 right-0">
-					<Button className="px-12 py-7 text-[1rem] font-semibold rounded-2xl w-full">
+					<Button className="px-12 py-7 text-[1rem] font-semibold rounded-2xl ">
 						Participate in
-						<span className="">Web3 Funding</span>
+						<span className="">VAYLA Boost</span>
 					</Button>
 				</div>
 			</div>
