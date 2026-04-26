@@ -13,14 +13,14 @@ interface IHightlightChallengeCardProps {
 const DEFAULT_ENDS_AT = "2026-05-01T15:00:00+09:00";
 
 export function HightlightChallengeCard({ challenge }: IHightlightChallengeCardProps) {
-	const { name, description, thumbnailUrl, endDate, vaylaPrizePool } = challenge;
+	const { name, description, endDate, vaylaPrizePool } = challenge;
 	const remain = formatEndsInDaysHours(endDate, DEFAULT_ENDS_AT);
 
 	return (
 		<div className="w-full rounded-[2rem] bg-hightlight-challenge-card px-6 py-7 shadow-[0_12px_26px_rgba(11,44,48,0.12)] mt-20">
 			<div className="flex items-start gap-5">
 				<Image
-					src={thumbnailUrl || imgChallengeThumnailFallback.src}
+					src={imgChallengeThumnailFallback.src}
 					alt={name}
 					width={126}
 					height={126}

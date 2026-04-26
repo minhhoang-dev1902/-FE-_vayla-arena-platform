@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { allerta, averta, inter } from "@/share/lib/fonts";
 import "./globals.css";
+import { Providers } from "@/share/providers";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -16,7 +17,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${inter.variable} ${allerta.variable} ${averta.variable} antialiased`}>
-				{children}
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);

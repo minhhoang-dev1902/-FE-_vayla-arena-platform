@@ -79,6 +79,7 @@
 	--cus-progress: #00d1c1;
 	--point-2: #00d1c1;
 	--hightlight-challenge-card: #d6eeeb;
+	--cus-muted-secondary: #787f89;
 }
 
 .dark {
@@ -127,6 +128,7 @@
 	--shadow-xl:
 		0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
 	--shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+	--cus-muted-secondary: #787f89;
 }
 
 @theme {
@@ -206,6 +208,7 @@
 	--color-point-2: var(--point-2);
 	--color-third-button: var(--third-button);
 	--color-hightlight-challenge-card: var(--hightlight-challenge-card);
+	--color-cus-muted-secondary: var(--cus-muted-secondary);
 }
 
 @layer base {
@@ -305,3 +308,8 @@
 		);
 	}
 }
+
+/* Keep muted token stable after imported/generated theme CSS. */
+/* :root {
+	--muted: #787f89 !important;
+} */

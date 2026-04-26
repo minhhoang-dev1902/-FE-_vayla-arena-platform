@@ -31,8 +31,11 @@ export function getYoutubeVideoId(rawUrl: string): string | null {
 	return null;
 }
 
-export function getYoutubeThumbnailUrl(youtubeUrl: string): string | null {
+export function getYoutubeThumbnailUrl(
+	youtubeUrl: string,
+	fallbackUrl: string | null = null,
+): string | null {
 	const id = getYoutubeVideoId(youtubeUrl);
-	if (!id) return null;
+	if (!id) return fallbackUrl;
 	return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 }

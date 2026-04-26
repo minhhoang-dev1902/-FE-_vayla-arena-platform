@@ -1,4 +1,5 @@
 import { TRACK_DATA_TEST } from "@/app/(common)/home/data_test";
+import { DiscoveryTrackListSection } from "@/features/discovery";
 import { ChallengeSlide } from "@/features/discovery/components/hero-sliders/ChallengeSlide";
 import { TrackSlide } from "@/features/discovery/components/hero-sliders/TrackSlide";
 import type { IChallenge } from "@/features/discovery/models/inteface/challenge.interface";
@@ -34,6 +35,8 @@ export default function DiscoveryPage() {
 				</div>
 
 				<HightlightChallengeCard challenge={challenge} />
+
+				<DiscoveryTrackListSection />
 			</div>
 		</div>
 	);

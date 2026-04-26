@@ -15,9 +15,9 @@ export type ChallengeSlideProps = {
 };
 
 export function ChallengeSlide({ challenge, className }: ChallengeSlideProps) {
-	const { name, endDate, thumbnailUrl, description } = challenge || {};
+	const { name, endDate, description } = challenge || {};
 	const end = parseOptionalEndDate(endDate, DEFAULT_ENDS_AT);
-	const backgroundImage = thumbnailUrl || imgChallengeThumnail.src;
+	const backgroundImage = imgChallengeThumnail.src;
 	const detailLines = description
 		? description
 				.split("\n")
