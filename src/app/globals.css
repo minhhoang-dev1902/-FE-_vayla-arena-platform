@@ -20,7 +20,7 @@
 	--muted-foreground: rgb(115, 115, 115);
 	--accent: rgba(229, 231, 235, 0.5);
 	--accent-foreground: rgb(23, 23, 23);
-	--destructive: rgb(231, 0, 11);
+	--destructive: #ef4444;
 	--destructive-foreground: rgb(255, 255, 255);
 	--border: rgb(229, 229, 229);
 	--input: rgb(229, 229, 229);
@@ -65,7 +65,20 @@
 	--accent-secondary: #6ffff4;
 	--text-subtle: #fff9f9;
 	--dark-primary: #003531;
+	--dark-sub-primary: #2a655f;
+	--dark-secondary: #006857;
 	--light-green: #ccfbf1;
+
+	--primary-button: #00c0a3;
+	--secondary-button: #00a88e;
+	--third-button: #b7e4dd;
+
+	--background-card: #f5f7f7;
+	--text-link: #01a88e;
+	--cus-muted: #94a3b8;
+	--cus-progress: #00d1c1;
+	--point-2: #00d1c1;
+	--hightlight-challenge-card: #d6eeeb;
 }
 
 .dark {
@@ -79,7 +92,7 @@
 	--primary-foreground: rgb(23, 23, 23);
 	--secondary: rgb(38, 38, 38);
 	--secondary-foreground: rgb(250, 250, 250);
-	--muted: rgb(38, 38, 38);
+	--muted: #787f89;
 	--muted-foreground: rgb(161, 161, 161);
 	--accent: rgb(64, 64, 64);
 	--accent-foreground: rgb(250, 250, 250);
@@ -182,6 +195,17 @@
 	--color-text-subtle: var(--text-subtle);
 	--color-dark-primary: var(--dark-primary);
 	--color-light-green: var(--light-green);
+	--color-dark-sub-primary: var(--dark-sub-primary);
+	--color-dark-secondary: var(--dark-secondary);
+	--color-secondary-button: var(--secondary-button);
+	--color-background-card: var(--background-card);
+	--color-text-link: var(--text-link);
+	--color-primary-button: var(--primary-button);
+	--color-cus-muted: var(--cus-muted);
+	--color-cus-progress: var(--cus-progress);
+	--color-point-2: var(--point-2);
+	--color-third-button: var(--third-button);
+	--color-hightlight-challenge-card: var(--hightlight-challenge-card);
 }
 
 @layer base {

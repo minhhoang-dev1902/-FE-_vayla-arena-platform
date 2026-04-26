@@ -1,5 +1,36 @@
-import type { IFunding } from "../models/interface/funding.interface";
-export const FUNDING_LIST_MOCK: IFunding[] = [
+import type { ITrack } from "@/features/discovery/models/inteface/track.interface";
+import type { IDiscovery } from "@/features/discovery/models/types/discovery.type";
+
+export const TRACK_DATA_TEST: ITrack[] = [
+	{
+		rank: 1,
+		submissionId: "sub-solar-echo",
+		trackTitle: "Solar Echo",
+		artistName: "Nova Sato",
+		genre: "Electronic",
+		youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+		voteCount: 842,
+		eventId: "evt-dawn-patrol",
+		eventName: "Dawn Patrol",
+		rankChange: "up",
+		createdAt: "2026-04-01T12:00:00.000Z",
+	},
+	{
+		rank: 2,
+		submissionId: "sub-midnight-run",
+		trackTitle: "Midnight Run",
+		artistName: "Lan Anh",
+		genre: "Folk",
+		youtubeUrl: "https://youtu.be/jNQXAC9IVRw",
+		voteCount: 531,
+		eventId: "evt-spring-fest",
+		eventName: "Spring Fest",
+		rankChange: "same",
+		createdAt: "2026-04-02T12:00:00.000Z",
+	},
+];
+
+export const DISCOVERY_DATA_TEST: IDiscovery[] = [
 	{
 		id: "ad70cbd9-462d-4c9e-a2f6-53e07af13e16",
 		slug: "test-pool-1776706597518-4ac1d3f0",

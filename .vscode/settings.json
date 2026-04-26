@@ -7,7 +7,7 @@
 		"source.fixAll.eslint": "always"
 	},
 	"[css]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "vscode.css-language-features"
 	},
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"

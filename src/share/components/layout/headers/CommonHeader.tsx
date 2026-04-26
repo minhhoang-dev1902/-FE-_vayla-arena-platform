@@ -14,7 +14,7 @@ import { appMainNavItems, MainNavIcon } from "@/share/components/layout/nav/app-
 import { MobileNavTrigger } from "@/share/components/layout/nav/mobile-nav-trigger";
 import { cn } from "@/share/lib/utils";
 
-export function MainHeader() {
+export function CommonHeader() {
 	const { close } = useAppShellNav();
 	const pathname = usePathname();
 

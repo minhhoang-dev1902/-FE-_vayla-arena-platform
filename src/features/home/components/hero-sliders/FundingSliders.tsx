@@ -1,7 +1,7 @@
 "use client";
 
 import thumbnail from "@/assets/images/card_funding_web3.png";
-import type { TFunding } from "@/features/fundings/models/type/funding.type";
+// import type { TFunding } from "@/features/fundings/models/type/funding.type";
 import { CountdownPill } from "@/share/components/countdown/countdown-pill";
 import { Button } from "@/share/components/ui/button";
 import { cn } from "@/share/lib/utils";
@@ -11,7 +11,10 @@ const DEFAULT_ENDS_AT = "2026-05-01T15:00:00+09:00";
 
 export type FundingSlidersProps = {
 	className?: string;
-	funding_data?: TFunding;
+	funding_data?: {
+		title: string;
+		end_date: string;
+	};
 };
 
 export function FundingSliders({ className, funding_data }: FundingSlidersProps) {

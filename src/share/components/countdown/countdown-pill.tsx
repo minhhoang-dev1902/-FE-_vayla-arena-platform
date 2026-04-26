@@ -4,7 +4,6 @@ import { useCountdown } from "@/share/hooks/use-countdown";
 import { cn } from "@/share/lib/utils";
 
 export type CountdownPillProps = {
-	/** Thời điểm kết thúc đếm ngược (dùng `parseOptionalEndDate` / `new Date(...)` ở nơi gọi nếu cần) */
 	end: Date;
 	className?: string;
 };
@@ -36,8 +35,6 @@ function formatAriaLabel(parts: { d: number; h: number; m: number; s: number }):
 	return `Còn lại ${String(parts.d)} ngày ${String(parts.h).padStart(2, "0")} giờ ${String(parts.m).padStart(2, "0")} phút ${String(parts.s).padStart(2, "0")} giây`;
 }
 
-/**
- */
 export function CountdownPill({ end, className }: CountdownPillProps) {
 	const parts = useCountdown(end);
 
