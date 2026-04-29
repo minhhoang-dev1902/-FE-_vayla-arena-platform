@@ -1,34 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import imgChallengeThumnail from "@/assets/images/challenge-thumnails.png";
-import { Button } from "@/share/components/ui/button";
 import { useState } from "react";
-import { useGetTracks } from "@/features/discovery/hooks/useGetTracks";
+import { TRACK_DATA_TEST } from "@/app/(common)/home/data_test";
+import imgChallengeThumnail from "@/assets/images/challenge-thumnails.png";
 import { DiscoveryTrackListSection } from "@/features/discovery/components/TrackListSection/DiscoveryTrackListSection";
+import { useGetTracks } from "@/features/discovery/hooks/useGetTracks";
 import {
 	TrackClass,
 	TracksSearchClass,
 	type TTypeSearchTracks,
 } from "@/features/discovery/models/class/track.class";
-import { TRACK_DATA_TEST } from "@/app/(common)/home/data_test";
+import { Button } from "@/share/components/ui/button";
 
 export function DiscoveryTab() {
 	const tracksFallBack: TrackClass[] = TRACK_DATA_TEST.map(track => new TrackClass(track));
-
-
 
 	const [paramsSearch, setParamsSearch] = useState<TracksSearchClass>(
 		new TracksSearchClass({ type: "hot" }),
 	);
 
-	const { data: resData, isPending } = useGetTracks(paramsSearch);
+	const { data: resData } = useGetTracks(paramsSearch);
 
 	const handleFilter = (filter: TTypeSearchTracks) => {
 		setParamsSearch(new TracksSearchClass({ type: filter }));
 	};
 	const tracks_data = resData?.data.tracks ?? tracksFallBack;
-
 
 	return (
 		<div className="flex flex-col ">

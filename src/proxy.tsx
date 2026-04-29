@@ -7,7 +7,7 @@ import { NAVIGATE } from "./share/contants/navigate";
 const AUTH_ONLY_ROUTES: string[] = [];
 const AUTH_AND_WALLET_ROUTES: string[] = [NAVIGATE.SUBMIT_TRACK];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 	const privyToken = request.cookies.get("privy-token");
 

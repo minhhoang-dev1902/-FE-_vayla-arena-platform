@@ -45,19 +45,19 @@ export default function HomePage() {
 						<TabsList className="flex h-auto w-full px-1 py-6">
 							<TabsTrigger
 								value="home"
-								className="text-sm font-semibold py-4 px-7 data-active:text-dark-primary text-muted-foreground"
+								className="text-[15px] font-bold py-4 px-7 data-active:text-dark-primary text-muted-foreground"
 							>
 								<p className="text-[1rem] font-semibold">Home</p>
 							</TabsTrigger>
 							<TabsTrigger
 								value="boost"
-								className="text-sm font-semibold py-4 px-7 data-active:text-dark-primary text-muted-foreground"
+								className="text-[15px] font-bold py-4 px-7 data-active:text-dark-primary text-muted-foreground"
 							>
 								<p className="text-[1rem] font-semibold">Boost</p>
 							</TabsTrigger>
 							<TabsTrigger
 								value="discovery"
-								className="text-sm font-semibold py-4 px-7 data-active:text-dark-primary text-muted-foreground"
+								className="text-[15px] font-bold py-4 px-7 data-active:text-dark-primary text-muted-foreground"
 							>
 								<p className="text-[1rem] font-semibold">Discovery</p>
 							</TabsTrigger>

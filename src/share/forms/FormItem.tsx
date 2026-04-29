@@ -100,7 +100,7 @@ export function FormItem<
 			{label ? (
 				<FieldLabel
 					htmlFor={field.name}
-					className="text-[13px] leading-[15px] font-semibold tracking-[0.8px] text-dark-primary mb-[8px]"
+					className="text-[13px] leading-[15px] font-semibold tracking-[0.8px] text-dark-primary"
 				>
 					{label}
 				</FieldLabel>

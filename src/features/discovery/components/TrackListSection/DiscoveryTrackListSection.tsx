@@ -1,16 +1,15 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/share/components/ui/button";
 import { CustomEmpty } from "@/share/components/ui/customs/custom-fallback/CustomEmpty";
 import { RevealMotion } from "@/share/components/ui/customs/custom-motion/RevealMotion";
 import { CustomSkeletonSwapper } from "@/share/components/ui/customs/custom-skeleton/CustomSkeletonSwapper";
 import { CustomScrollView } from "@/share/components/ui/customs/ScrollView";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { cn } from "@/share/lib/utils";
-import type {
-	TrackClass,
-	TTypeSearchTracks,
-} from "../../models/class/track.class";
+import type { TrackClass, TTypeSearchTracks } from "../../models/class/track.class";
 import { TracksCard } from "../TracksCard";
 
 interface IDiscoveryTrackListSectionProps {
@@ -33,11 +32,15 @@ export function DiscoveryTrackListSection({
 	tracks = [],
 	isPending = false,
 }: IDiscoveryTrackListSectionProps) {
+	const router = useRouter();
+	const handleViewAll = () => {
+		router.push(NAVIGATE.DISCOVERY);
+	};
 	return (
 		<div className={cn("mt-[3rem]", wrapperClassName)}>
 			<div className="flex items-center justify-between mb-[1rem]">
 				<p className="text-lg font-bold text-black">Discovery Track List</p>
-				<p className="flex items-center text-text-link">
+				<p className="flex items-center text-text-link hover:underline cursor-pointer">
 					View All <ChevronRight className="w-4 h-4" />
 				</p>
 			</div>
@@ -82,6 +85,7 @@ export function DiscoveryTrackListSection({
 			<Button
 				variant="outline"
 				className="h-15 w-full rounded-[15px] border-1 border-cus-muted-secondary bg-white text-[15px] font-semibold text-cus-muted-secondary mt-[29px]"
+				onClick={handleViewAll}
 			>
 				View All
 			</Button>
