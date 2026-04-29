@@ -1,10 +1,9 @@
 "use client";
 
 import { X } from "lucide-react";
-import Link from "next/link";
 import { useAppShellNav } from "@/share/components/layout/app-shell-nav-context";
-import { appSidebarNavItems } from "@/share/components/layout/nav/app-sidebar-nav";
 import { Button } from "@/share/components/ui/button";
+import { CustomButtonConnectWallet } from "@/share/components/ui/customs/custom-button/CustomButtonConnectWallet";
 import { cn } from "@/share/lib/utils";
 
 export function AppShellMobileNav() {
@@ -46,7 +45,8 @@ export function AppShellMobileNav() {
 					className="scrollbar-app flex flex-1 flex-col gap-0.5 overflow-y-auto p-3"
 					aria-label="Tài khoản và tiện ích"
 				>
-					{appSidebarNavItems.map(item => (
+					<CustomButtonConnectWallet />
+					{/* {appSidebarNavItems.map(item => (
 						<Link
 							key={item.href}
 							href={item.href}
@@ -55,7 +55,7 @@ export function AppShellMobileNav() {
 						>
 							{item.label}
 						</Link>
-					))}
+					))} */}
 				</nav>
 			</aside>
 		</>

@@ -1,3 +1,7 @@
+"use client";
+
+import { usePrivy } from "@privy-io/react-auth";
+import { useEffect } from "react";
 import { FUNDING_LIST_MOCK } from "@/features/fundings/datas/funding_datas";
 import type { IFunding } from "@/features/fundings/models/interface/funding.interface";
 import { DiscoverySliders } from "@/features/home/components/hero-sliders/DiscoverySliders";
@@ -8,19 +12,22 @@ import { BoostTab } from "@/features/home/components/tabs/boost/BoostTab";
 import { DiscoveryTab } from "@/features/home/components/tabs/discovery/DiscoveryTab";
 import { HomeTab } from "@/features/home/components/tabs/home/HomeTab";
 import { CustomSlider } from "@/share/components/ui";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/share/components/ui/tabs";
 
-type HomePageProps = {
-	searchParams: Promise<{ tab?: string | string[] }>;
-};
-
-export default async function HomePage({ searchParams }: HomePageProps) {
-	const sp = await searchParams;
-	const tabParam = sp.tab;
-	const tab = Array.isArray(tabParam) ? tabParam[0] : tabParam;
-	const defaultTab = tab === "discovery" ? "discovery" : "home";
-
+export default function HomePage() {
+	const tab = 0;
+	const defaultTab = tab === 0 ? "home" : "discovery";
 	const funding_data: IFunding = FUNDING_LIST_MOCK[0];
+
+	const { getAccessToken } = usePrivy();
+	useEffect(() => {
+		async function fetchToken() {
+			const _accessToken = await getAccessToken();
+		}
+
+		fetchToken();
+	}, [getAccessToken]);
 	return (
 		<div>
 			<CustomSlider

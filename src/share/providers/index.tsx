@@ -1,12 +1,12 @@
 "use client";
 
+import PrivyProviders from "./privy-provider";
 import { QueryProvider } from "./query-provider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	return (
-		<QueryProvider>
-			{/* others providers */}
-			{children}
-		</QueryProvider>
+		<PrivyProviders>
+			<QueryProvider>{children}</QueryProvider>
+		</PrivyProviders>
 	);
 }

@@ -17,7 +17,6 @@ import { cn } from "@/share/lib/utils";
 export function CommonHeader() {
 	const { close } = useAppShellNav();
 	const pathname = usePathname();
-
 	return (
 		<header className={appShellHeaderOuterClassName}>
 			<div className={appShellHeaderInnerClassName}>
