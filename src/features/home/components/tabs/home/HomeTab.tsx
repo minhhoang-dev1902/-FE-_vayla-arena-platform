@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import tokenMark from "@/assets/icons/vayla-token-section-icon.svg";
+import { Button } from "@/share/components/ui/button";
 
 export function HomeTab() {
 	return (
@@ -52,13 +53,14 @@ export function HomeTab() {
 					premium benefits.
 				</p>
 				<div className="mt-5 border-t border-primary/15 pt-4">
-					<button
+					<Button
 						type="button"
+						variant="link"
 						className="flex w-full items-center justify-between gap-2 text-left font-sans text-sm font-bold tracking-[0.1rem] text-[#0D9488] transition-opacity hover:opacity-80"
 					>
 						<span>MORE DETAILS</span>
 						<ChevronRight className="size-6 shrink-0 text-primary" strokeWidth={2.25} />
-					</button>
+					</Button>
 				</div>
 			</section>
 		</div>

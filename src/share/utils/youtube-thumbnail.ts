@@ -36,6 +36,6 @@ export function getYoutubeThumbnailUrl(
 	fallbackUrl: string | null = null,
 ): string | null {
 	const id = getYoutubeVideoId(youtubeUrl);
-	if (!id) return fallbackUrl;
+	if (!id) return fallbackUrl ?? "";
 	return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 }

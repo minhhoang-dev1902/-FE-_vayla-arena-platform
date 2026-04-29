@@ -1,39 +1,38 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@/share/components/ui/button";
+import { CustomEmpty } from "@/share/components/ui/customs/custom-fallback/CustomEmpty";
+import { RevealMotion } from "@/share/components/ui/customs/custom-motion/RevealMotion";
 import { CustomSkeletonSwapper } from "@/share/components/ui/customs/custom-skeleton/CustomSkeletonSwapper";
 import { CustomScrollView } from "@/share/components/ui/customs/ScrollView";
 import { cn } from "@/share/lib/utils";
-import { useGetTracks } from "../../hooks/useGetTracks";
-import {
-	DiscoverySearchClass,
-	type TTypeSearchDiscovery,
-} from "../../models/class/discovery-search.class";
-import { TracksCard } from "./TracksCard";
+import type {
+	TrackClass,
+	TTypeSearchTracks,
+} from "../../models/class/track.class";
+import { TracksCard } from "../TracksCard";
 
 interface IDiscoveryTrackListSectionProps {
 	wrapperClassName?: string;
+	activeFilter: TTypeSearchTracks;
+	onFilterChange: (filter: TTypeSearchTracks) => void;
+	tracks?: TrackClass[];
+	isPending?: boolean;
 }
-const FILTERS: { id: TTypeSearchDiscovery; label: string }[] = [
+const FILTERS: { id: TTypeSearchTracks; label: string }[] = [
 	{ id: "hot", label: "Hot" },
 	{ id: "new", label: "New" },
 	{ id: "ending-soon", label: "Ending Soon" },
 ];
 
-export function DiscoveryTrackListSection(props: IDiscoveryTrackListSectionProps) {
-	const { wrapperClassName } = props;
-	const [paramsSearch, setParamsSearch] = useState<DiscoverySearchClass>(
-		new DiscoverySearchClass({ type: "hot" }),
-	);
-
-	const { data: res_data, isPending } = useGetTracks(paramsSearch);
-
-	const handleFilter = (filter: TTypeSearchDiscovery) => {
-		setParamsSearch(new DiscoverySearchClass({ type: filter }));
-	};
-
+export function DiscoveryTrackListSection({
+	wrapperClassName,
+	activeFilter,
+	onFilterChange,
+	tracks = [],
+	isPending = false,
+}: IDiscoveryTrackListSectionProps) {
 	return (
 		<div className={cn("mt-[3rem]", wrapperClassName)}>
 			<div className="flex items-center justify-between mb-[1rem]">
@@ -45,12 +44,12 @@ export function DiscoveryTrackListSection(props: IDiscoveryTrackListSectionProps
 
 			<div className="flex flex-wrap gap-2 mb-[20px]">
 				{FILTERS.map(({ id, label }) => {
-					const active = paramsSearch.type === id;
+					const active = activeFilter === id;
 					return (
 						<Button
 							key={id}
 							type="button"
-							onClick={() => handleFilter(id)}
+							onClick={() => onFilterChange(id)}
 							className={cn(
 								"h-[42px] rounded-lg px-5 text-sm font-bold transition-colors",
 								active
@@ -64,13 +63,21 @@ export function DiscoveryTrackListSection(props: IDiscoveryTrackListSectionProps
 				})}
 			</div>
 
-			<CustomScrollView className="flex flex-col gap-4">
-				{isPending ? (
-					<CustomSkeletonSwapper count={3} variant="card" />
-				) : (
-					res_data?.data.tracks.map(track => <TracksCard key={track.submissionId} track={track} />)
-				)}
-			</CustomScrollView>
+			<RevealMotion triggerKey={tracks?.length}>
+				<CustomScrollView className="flex flex-col gap-4">
+					{isPending ? (
+						<CustomSkeletonSwapper count={3} variant="card" />
+					) : tracks.length > 0 ? (
+						tracks.map(track => <TracksCard key={track.submissionId} track={track} />)
+					) : (
+						<CustomEmpty
+							title="No Tracks Found"
+							description="There are currently no tracks to display. Please check back later or try a different filter."
+							className="my-10"
+						/>
+					)}
+				</CustomScrollView>
+			</RevealMotion>
 
 			<Button
 				variant="outline"

@@ -3,12 +3,18 @@
 import thumbnail from "@/assets/images/discovery-slider-thumbnail.png";
 import { Button } from "@/share/components/ui/button";
 import { cn } from "@/share/lib/utils";
+import { useRouter } from "next/navigation";
 
 export type TProps = {
 	className?: string;
 };
 
 export function DiscoverySliders({ className }: TProps) {
+	const router = useRouter();
+	const handleGoToDiscovery = () => {
+		router.push("/discovery");
+	};
+
 	return (
 		<div className={cn("relative h-full w-full overflow-hidden px-6", className)}>
 			<div
@@ -31,7 +37,7 @@ export function DiscoverySliders({ className }: TProps) {
 				</div>
 
 				<div className="flex justify-center absolute bottom-15 left-0 right-0 ">
-					<Button className="px-12 py-7 text-[1rem] font-semibold rounded-2xl w-full">
+					<Button onClick={handleGoToDiscovery} className="px-12 py-7 text-[1rem] font-semibold rounded-2xl w-full">
 						Go to VAYLA Discovery
 					</Button>
 				</div>

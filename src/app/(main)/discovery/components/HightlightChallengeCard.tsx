@@ -5,6 +5,7 @@ import type { IChallenge } from "@/features/discovery/models/inteface/challenge.
 import { Button } from "@/share/components/ui/button";
 import { CustomBadge } from "@/share/components/ui/customs/custom-badge/CustomBadge";
 import { formatEndsInDaysHours } from "@/share/utils/countdown";
+import { useRouter, useParams } from "next/navigation";
 
 interface IHightlightChallengeCardProps {
 	challenge: IChallenge;
@@ -13,8 +14,14 @@ interface IHightlightChallengeCardProps {
 const DEFAULT_ENDS_AT = "2026-05-01T15:00:00+09:00";
 
 export function HightlightChallengeCard({ challenge }: IHightlightChallengeCardProps) {
+	const router = useRouter();
+
 	const { name, description, endDate, vaylaPrizePool } = challenge;
 	const remain = formatEndsInDaysHours(endDate, DEFAULT_ENDS_AT);
+
+	const onExploreChallengeClick = () => {
+		router.push(`/discovery/${challenge.eventId}`);
+	};
 
 	return (
 		<div className="w-full rounded-[2rem] bg-hightlight-challenge-card px-6 py-7 shadow-[0_12px_26px_rgba(11,44,48,0.12)] mt-20">
@@ -51,7 +58,7 @@ export function HightlightChallengeCard({ challenge }: IHightlightChallengeCardP
 
 			<div className="mt-4 flex items-center justify-between gap-5">
 				<p className="text-[12px] leading-none font-bold text-dark-secondary">{remain}</p>
-				<Button className="h-[44px] min-w-[55%] rounded-[10px] bg-primary-button px-8 text-[0.875rem] font-bold text-white hover:bg-[#00ad95]">
+				<Button onClick={onExploreChallengeClick} className="h-[44px] min-w-[55%] rounded-[10px] bg-primary-button px-8 text-[0.875rem] font-bold text-white hover:bg-[#00ad95]">
 					Explore Challenge
 				</Button>
 			</div>

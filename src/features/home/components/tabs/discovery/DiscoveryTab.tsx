@@ -2,12 +2,36 @@
 
 import Image from "next/image";
 import imgChallengeThumnail from "@/assets/images/challenge-thumnails.png";
-import { DiscoveryTrackListSection } from "@/features/discovery";
 import { Button } from "@/share/components/ui/button";
+import { useState } from "react";
+import { useGetTracks } from "@/features/discovery/hooks/useGetTracks";
+import { DiscoveryTrackListSection } from "@/features/discovery/components/TrackListSection/DiscoveryTrackListSection";
+import {
+	TrackClass,
+	TracksSearchClass,
+	type TTypeSearchTracks,
+} from "@/features/discovery/models/class/track.class";
+import { TRACK_DATA_TEST } from "@/app/(common)/home/data_test";
 
 export function DiscoveryTab() {
+	const tracksFallBack: TrackClass[] = TRACK_DATA_TEST.map(track => new TrackClass(track));
+
+
+
+	const [paramsSearch, setParamsSearch] = useState<TracksSearchClass>(
+		new TracksSearchClass({ type: "hot" }),
+	);
+
+	const { data: resData, isPending } = useGetTracks(paramsSearch);
+
+	const handleFilter = (filter: TTypeSearchTracks) => {
+		setParamsSearch(new TracksSearchClass({ type: filter }));
+	};
+	const tracks_data = resData?.data.tracks ?? tracksFallBack;
+
+
 	return (
-		<div className="flex flex-col pb-8">
+		<div className="flex flex-col ">
 			<section
 				aria-label="Create and earn"
 				className="w-full rounded-xl bg-[#D6EEEB] p-6 sm:p-8 shadow-lg shadow-black/5 mt-[2rem]"
@@ -38,7 +62,14 @@ export function DiscoveryTab() {
 				</div>
 			</section>
 
-			<DiscoveryTrackListSection wrapperClassName="mt-10" />
+			<DiscoveryTrackListSection
+				activeFilter={paramsSearch.type}
+				onFilterChange={handleFilter}
+				tracks={tracks_data}
+				// isPending={isPending}
+				isPending={false}
+				wrapperClassName="mt-10"
+			/>
 		</div>
 	);
 }

@@ -2,10 +2,9 @@ import Image from "next/image";
 import TrackSlideFallback from "@/assets/images/track-slide-fallback.png";
 import { Button } from "@/share/components/ui/button";
 import { cn } from "@/share/lib/utils";
-import type { ITrack } from "../../models/inteface/track.interface";
-
+import { TrackClass } from "../../models/class/track.class";
 export type TrackSlideProps = {
-	track: ITrack;
+	track: TrackClass | null;
 	className?: string;
 };
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 import trackCoverFallback from "@/assets/images/track-cover-fallback.png";
 import { Button } from "@/share/components/ui/button";
 import { getYoutubeThumbnailUrl } from "@/share/utils/youtube-thumbnail";
-import type { TrackClass } from "../../models/class/track.class";
+import type { TrackClass } from "../models/class/track.class";
 
 export type TracksCardProps = {
 	track: TrackClass;
@@ -39,7 +39,7 @@ export function TracksCard({ track, onVote }: TracksCardProps) {
 				<p className="font-sans text-[14px] font-bold tracking-tight text-dark-primary">
 					{track.trackTitle}
 				</p>
-				<p className="font-sans text-[11px] text-dark-sub-primary">
+				<p className="truncate whitespace-nowrap font-sans text-[11px] text-dark-sub-primary">
 					<span>by: {track.artistName}</span>
 					<span className="mx-1.5 text-dark-sub-primary/80">•</span>
 					<span>Challenge: {track.eventName}</span>
