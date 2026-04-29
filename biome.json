@@ -11,7 +11,10 @@
 	},
 	"overrides": [
 		{
-			"includes": ["src/share/components/ui/index.ts"],
+			"includes": [
+				"src/share/components/ui/index.ts",
+				"src/share/forms/index.ts"
+			],
 			"linter": {
 				"rules": {
 					"performance": {

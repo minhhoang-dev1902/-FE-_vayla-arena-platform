@@ -19,38 +19,10 @@ const eslintConfig = defineConfig([
 			perfectionist,
 		},
 		rules: {
-			// Sort object keys by line length
-			"perfectionist/sort-objects": [
-				"error",
-				{
-					order: "asc",
-					type: "line-length",
-				},
-			],
-			// Sort JSX props by line length (short → long)
-			"perfectionist/sort-jsx-props": [
-				"error",
-				{
-					order: "asc",
-					type: "line-length",
-				},
-			],
-			// Sort interface properties by line length
-			"perfectionist/sort-interfaces": [
-				"error",
-				{
-					order: "asc",
-					type: "line-length",
-				},
-			],
-			// Sort type properties by line length
-			"perfectionist/sort-object-types": [
-				"error",
-				{
-					order: "asc",
-					type: "line-length",
-				},
-			],
+			"perfectionist/sort-objects": "off",
+			"perfectionist/sort-jsx-props": "off",
+			"perfectionist/sort-interfaces": "off",
+			"perfectionist/sort-object-types": "off",
 		},
 	},
 ]);
