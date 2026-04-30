@@ -1,8 +1,9 @@
 import { apiCommonService } from "@/share/services/api-common";
 import { DISCOVERY_ENDPOINTS } from "../endpoints/discovery.endpoints";
 import {
+	EventDetailResponseClass,
 	type EventSearchClass,
-	EventSearchResponseClass,
+	EventsSearchResponseClass,
 } from "../models/class/event-search.class";
 import type { TracksSearchClass } from "../models/class/track.class";
 import {
@@ -36,10 +37,18 @@ export const discoveryApi = {
 	getEventsList: async (search: EventSearchClass) => {
 		const { typeEvent } = search;
 		const url = `${DISCOVERY_ENDPOINTS.EVENTS_LIST}/${typeEvent}`;
-		const response = await apiCommonService.get<EventSearchResponseClass, EventSearchClass>({
+		const response = await apiCommonService.get<EventsSearchResponseClass, EventSearchClass>({
 			url: url,
 			config: { params: search },
 		});
-		return new EventSearchResponseClass(response.data);
+		return new EventsSearchResponseClass(response.data);
+	},
+
+	getEventDetail: async (id: string) => {
+		const url = DISCOVERY_ENDPOINTS.EVENT_DETAIL.format({ id });
+		const response = await apiCommonService.get<EventDetailResponseClass, string>({
+			url: url,
+		});
+		return new EventDetailResponseClass(response.data);
 	},
 };

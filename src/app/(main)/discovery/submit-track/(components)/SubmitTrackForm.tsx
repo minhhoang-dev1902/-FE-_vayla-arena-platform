@@ -1,11 +1,18 @@
 import { useCallback } from "react";
+import { Controller } from "react-hook-form";
 import { z } from "zod";
+import { useGetEvents } from "@/features/discovery/hooks/getEvents";
+import {
+	EEventSearchType,
+	EventSearchClass,
+} from "@/features/discovery/models/class/event-search.class";
 import { Button } from "@/share/components/ui/button";
 import { PreviewYoutubeEmbed } from "@/share/components/ui/customs/custom-cards/PreviewYoutubeEmbed";
 import { CustomCheckBox } from "@/share/components/ui/customs/custom-checkbox/CustomCheckBox";
 import { CustomInput } from "@/share/components/ui/customs/custom-input/CustomInput";
 import { CustomTextArea } from "@/share/components/ui/customs/custom-input/CustomTextArea";
 import { CustomSelect } from "@/share/components/ui/customs/custom-select/CustomSelect";
+import { Field, FieldError, FieldLabel } from "@/share/components/ui/field";
 import { CustomForm, FormItem } from "@/share/forms";
 import { Policy } from "./Policy";
 
@@ -41,7 +48,7 @@ const submitTrackSchema = z.object({
 	artistName: z.string().min(1, "Artist name is required").max(120, "Artist name is too long"),
 	genre: z.string().min(1, "Please select a genre"),
 	youtubeUrl: z.string().min(1, "Please enter a YouTube URL"),
-	challengeSelection: z.boolean(),
+	challengeSelection: z.string(),
 	description: z.string(),
 });
 
@@ -51,12 +58,18 @@ const DEFAULT_VALUES: SubmitTrackFormValues = {
 	trackTitle: "",
 	artistName: "",
 	genre: "",
-	challengeSelection: false,
+	challengeSelection: "",
 	youtubeUrl: "",
 	description: "",
 };
 
 export function SubmitTrackForm() {
+	const initEventSearch = new EventSearchClass({
+		typeEvent: EEventSearchType.LIVE,
+	});
+	const { data: resDataEvent } = useGetEvents(initEventSearch);
+	const eventList = resDataEvent?.data?.events ?? [];
+
 	const handleSubmit = useCallback((values: SubmitTrackFormValues) => {
 		// TODO: gọi API submit track
 		void values;
@@ -83,15 +96,53 @@ export function SubmitTrackForm() {
 						<CustomSelect items={genreItems} placeholder="Choose genre" />
 					</FormItem>
 
-					<FormItem<SubmitTrackFormValues> name="challengeSelection" label="Challenge Selection">
-						<CustomCheckBox title="Upload your track file" />
-					</FormItem>
+					<Controller<SubmitTrackFormValues>
+						control={form.control}
+						name="challengeSelection"
+						render={({ field, fieldState }) => (
+							<Field className="relative mb-6" data-invalid={fieldState.invalid || undefined}>
+								<FieldLabel className="text-[13px] leading-[15px] font-semibold tracking-[0.8px] text-dark-primary uppercase">
+									Challenge Selection
+								</FieldLabel>
+								{eventList.length === 0 ? (
+									<p className="mt-2 text-[12px] leading-[18px] text-[#666666]">
+										No live challenges available right now.
+									</p>
+								) : (
+									<div className="mt-2 min-w-0 max-w-full overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] pb-1">
+										<div className="flex w-max min-w-0 flex-nowrap gap-[10px]">
+											{eventList.map(event => (
+												<CustomCheckBox
+													key={event.id}
+													title={event.name}
+													checked={field.value === event.id}
+													onCheckedChange={checked => {
+														if (checked) {
+															field.onChange(event.id);
+														} else if (field.value === event.id) {
+															field.onChange("");
+														}
+													}}
+												/>
+											))}
+										</div>
+									</div>
+								)}
+								{fieldState.error ? (
+									<FieldError
+										errors={[{ message: fieldState.error.message }]}
+										className="absolute left-0 top-full mt-[4px] text-[12px] leading-[14px] animate-in fade-in slide-in-from-top-1 duration-200"
+									/>
+								) : null}
+							</Field>
+						)}
+					/>
 
 					<FormItem<SubmitTrackFormValues> name="youtubeUrl" label="YouTube Embed Link">
 						<CustomInput placeholder="Enter your YouTube embed link" />
 					</FormItem>
 
-					<PreviewYoutubeEmbed url={form.watch("youtubeUrl")} className="mb-[20px] mt-[-5 px]" />
+					<PreviewYoutubeEmbed url={form.watch("youtubeUrl")} className="mb-[20px] mt-[-5px]" />
 
 					<FormItem<SubmitTrackFormValues> name="description" label="Short Description">
 						<CustomTextArea placeholder="Add a short description of the track and its mood" />

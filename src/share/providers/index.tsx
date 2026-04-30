@@ -1,5 +1,6 @@
 "use client";
 
+import "@/share/utils/string-extensions";
 import PrivyProviders from "./privy-provider";
 import { QueryProvider } from "./query-provider";
 

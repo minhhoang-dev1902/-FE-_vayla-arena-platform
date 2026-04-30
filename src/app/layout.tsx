@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { allerta, averta, inter } from "@/share/lib/fonts";
 import "./globals.css";
+import "@/share/utils/string-extensions";
 import { Providers } from "@/share/providers";
 
 export const metadata: Metadata = {

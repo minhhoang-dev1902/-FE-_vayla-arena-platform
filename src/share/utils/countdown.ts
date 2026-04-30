@@ -50,7 +50,7 @@ export function formatTimeLeft(endDate: string): string {
 
 export function formatEndsInDaysHours(
 	endsAt: Date | string | undefined,
-	fallbackIso: string,
+	fallbackIso: string = "2026-05-01T15:00:00+09:00",
 ): string {
 	const endDate = parseOptionalEndDate(endsAt, fallbackIso);
 	if (!isValid(endDate)) return "Ends in 0d 0h";

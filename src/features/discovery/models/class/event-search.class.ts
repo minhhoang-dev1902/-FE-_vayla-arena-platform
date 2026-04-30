@@ -23,16 +23,16 @@ export class EventSearchClass extends BaseSearchListClass {
 	}
 }
 
-export class EventSearchResponseClass {
+export class EventsSearchResponseClass {
 	success: boolean = false;
 	data: {
 		events: EventClass[];
-		pagination: PaginationClass;
+		pagination?: PaginationClass;
 	} = {
 		events: [],
 		pagination: new PaginationClass({}),
 	};
-	constructor(data: Partial<EventSearchResponseClass>) {
+	constructor(data: Partial<EventsSearchResponseClass>) {
 		this.success = data.success ?? false;
 		const { events, pagination } = data.data ?? {};
 		const newEvents = events ? events.map(item => new EventClass(item)) : [];
@@ -42,5 +42,13 @@ export class EventSearchResponseClass {
 			pagination: newPagination,
 		};
 		this.success = data.success ?? false;
+	}
+}
+export class EventDetailResponseClass {
+	success: boolean = false;
+	data: EventClass = new EventClass({});
+	constructor(data: Partial<EventDetailResponseClass>) {
+		this.success = data.success ?? false;
+		this.data = data.data ?? new EventClass({});
 	}
 }
