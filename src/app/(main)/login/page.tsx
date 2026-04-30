@@ -3,7 +3,8 @@
 import { useLoginWithOAuth, usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-
+import { useAuthLogin } from "@/features/auth/hooks/useAuthLogin";
+import { authCredential } from "@/features/auth/services/auth.credential";
 import { Button } from "@/share/components/ui/button";
 import { cn } from "@/share/lib/utils";
 
@@ -11,11 +12,22 @@ const REDIRECT_AFTER_LOGIN = "/home";
 
 export default function LoginPage() {
 	const router = useRouter();
-	const { authenticated, ready } = usePrivy();
+	const { authenticated, ready, getAccessToken } = usePrivy();
 	const [error, setError] = useState<string | null>(null);
 
+	const { mutateAsync: mutateAuthLogin } = useAuthLogin();
+
 	const { initOAuth, state } = useLoginWithOAuth({
-		onComplete: () => {
+		onComplete: async () => {
+			const accessToken = await getAccessToken();
+			const response = await mutateAuthLogin({ accessToken });
+			if (response.success) {
+				authCredential.save({
+					accessToken: response.data.accessToken,
+					refreshToken: response.data.refreshToken,
+					profile: response.data.user,
+				});
+			}
 			router.replace(REDIRECT_AFTER_LOGIN);
 		},
 		onError: err => {

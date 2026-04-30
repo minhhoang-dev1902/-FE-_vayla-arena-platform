@@ -5,12 +5,14 @@ import {
 	type EventSearchClass,
 	EventsSearchResponseClass,
 } from "../models/class/event-search.class";
-import type { TracksSearchClass } from "../models/class/track.class";
+import { SubmitTrackResponseClass } from "../models/class/track.class";
 import {
 	type TrackSearchByEvent,
 	TrackSearchByEventResponseClass,
 	TrackSearchResponseClass,
+	type TracksSearchClass,
 } from "../models/class/track-search.class";
+import type { SubmitTrackFormValues } from "../models/schema/submit-track.schema";
 
 export const discoveryApi = {
 	getTracksList: async (search: TracksSearchClass) => {
@@ -50,5 +52,13 @@ export const discoveryApi = {
 			url: url,
 		});
 		return new EventDetailResponseClass(response.data);
+	},
+	submitTrack: async (data: SubmitTrackFormValues) => {
+		const url = DISCOVERY_ENDPOINTS.SUBMIT_TRACK;
+		const response = await apiCommonService.post<SubmitTrackResponseClass, SubmitTrackFormValues>({
+			url: url,
+			config: { data },
+		});
+		return new SubmitTrackResponseClass(response.data);
 	},
 };

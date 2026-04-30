@@ -1,7 +1,12 @@
-import { PAGINATION_DEFAULT } from "@/share/contants/pagination";
-import { BaseSearchListClass } from "@/share/models/class/base-search-list.class";
 import { getYoutubeThumbnailUrl } from "@/share/utils/youtube-thumbnail";
 
+export interface IPolicy {
+	vaylaDeducted: number;
+	platformBalance: number;
+	dailyUploadsToday: number;
+	dailyLimit: number;
+	remainingToday: number;
+}
 export class TrackClass {
 	rank: number;
 	submissionId: string;
@@ -39,15 +44,32 @@ export class TrackClass {
 	}
 }
 
-export type TTypeSearchTracks = "hot" | "new" | "ending-soon" | "";
-
-export class TracksSearchClass extends BaseSearchListClass {
-	type: TTypeSearchTracks = "";
-
-	constructor(data: Partial<TracksSearchClass>) {
-		super(data);
-		this.offset = data.offset ?? PAGINATION_DEFAULT.OFFSET;
-		this.limit = data.limit ?? PAGINATION_DEFAULT.LIMIT;
-		this.type = data.type ?? "";
+export class SubmitTrackResponseClass {
+	success: boolean = false;
+	data: {
+		submission: TrackClass;
+		policy: IPolicy;
+	} = {
+		submission: new TrackClass({}),
+		policy: {
+			vaylaDeducted: 0,
+			platformBalance: 0,
+			dailyUploadsToday: 0,
+			dailyLimit: 0,
+			remainingToday: 0,
+		},
+	};
+	constructor(data: Partial<SubmitTrackResponseClass>) {
+		this.success = data.success ?? false;
+		this.data = data.data ?? {
+			submission: new TrackClass({}),
+			policy: {
+				vaylaDeducted: 0,
+				platformBalance: 0,
+				dailyUploadsToday: 0,
+				dailyLimit: 0,
+				remainingToday: 0,
+			},
+		};
 	}
 }

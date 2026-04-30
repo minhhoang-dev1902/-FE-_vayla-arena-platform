@@ -6,11 +6,11 @@ import { TRACK_DATA_TEST } from "@/app/(common)/home/data_test";
 import imgChallengeThumnail from "@/assets/images/challenge-thumnails.png";
 import { DiscoveryTrackListSection } from "@/features/discovery/components/TrackListSection/DiscoveryTrackListSection";
 import { useGetTracks } from "@/features/discovery/hooks/useGetTracks";
+import { TrackClass } from "@/features/discovery/models/class/track.class";
 import {
-	TrackClass,
 	TracksSearchClass,
 	type TTypeSearchTracks,
-} from "@/features/discovery/models/class/track.class";
+} from "@/features/discovery/models/class/track-search.class";
 import { Button } from "@/share/components/ui/button";
 
 export function DiscoveryTab() {

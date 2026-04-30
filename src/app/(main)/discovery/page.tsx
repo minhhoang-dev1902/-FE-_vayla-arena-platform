@@ -10,11 +10,11 @@ import {
 	EEventSearchType,
 	EventSearchClass,
 } from "@/features/discovery/models/class/event-search.class";
+import { TrackClass } from "@/features/discovery/models/class/track.class";
 import {
-	TrackClass,
 	TracksSearchClass,
 	type TTypeSearchTracks,
-} from "@/features/discovery/models/class/track.class";
+} from "@/features/discovery/models/class/track-search.class";
 import type { IChallenge } from "@/features/discovery/models/inteface/challenge.interface";
 import { MainHeader } from "@/share/components/layout/headers/MainHeader";
 import { CustomSlider } from "@/share/components/ui";

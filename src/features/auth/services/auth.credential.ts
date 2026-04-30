@@ -1,11 +1,11 @@
 import { credentialStorage } from "@/share/storage/credential.storage";
-import type { UserProfile } from "../types/auth.type";
+import { UserClass } from "../models/class/user.class";
 
 export const authCredential = {
-	save: (data: { accessToken: string; refreshToken: string; profile: UserProfile }) => {
+	save: (data: { accessToken: string; refreshToken: string; profile: UserClass }) => {
 		credentialStorage.setAccessToken(data.accessToken);
 		credentialStorage.setRefreshToken(data.refreshToken);
-		credentialStorage.setProfile(data.profile);
+		credentialStorage.setProfile(new UserClass(data.profile));
 	},
 
 	getAccessToken: () => credentialStorage.getAccessToken(),

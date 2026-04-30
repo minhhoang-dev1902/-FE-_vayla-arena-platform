@@ -12,4 +12,14 @@ export const apiCommonService = {
 		const { params } = config ?? {};
 		return axiosInstance.get<T>(url, { params });
 	},
+	post: <T, D>({
+		url,
+		config,
+	}: {
+		url: string;
+		config?: AxiosRequestConfig<D>;
+	}): Promise<AxiosResponse<T>> => {
+		const { data } = config ?? {};
+		return axiosInstance.post<T>(url, data);
+	},
 };

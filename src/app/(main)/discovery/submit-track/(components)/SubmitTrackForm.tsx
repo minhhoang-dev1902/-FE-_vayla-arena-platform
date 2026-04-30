@@ -1,11 +1,17 @@
+import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { Controller } from "react-hook-form";
-import { z } from "zod";
 import { useGetEvents } from "@/features/discovery/hooks/getEvents";
+import { useMutateSubmitTrack } from "@/features/discovery/hooks/useMutateSubmitTrack";
 import {
 	EEventSearchType,
 	EventSearchClass,
 } from "@/features/discovery/models/class/event-search.class";
+import {
+	DEFAULT_VALUES_FORM,
+	type SubmitTrackFormValues,
+	submitTrackSchema,
+} from "@/features/discovery/models/schema/submit-track.schema";
 import { Button } from "@/share/components/ui/button";
 import { PreviewYoutubeEmbed } from "@/share/components/ui/customs/custom-cards/PreviewYoutubeEmbed";
 import { CustomCheckBox } from "@/share/components/ui/customs/custom-checkbox/CustomCheckBox";
@@ -43,43 +49,30 @@ const genreItems = [
 	{ label: "Soundtrack / OST", value: "soundtrack-ost" },
 ];
 
-const submitTrackSchema = z.object({
-	trackTitle: z.string().min(1, "Track title is required").max(120, "Track title is too long"),
-	artistName: z.string().min(1, "Artist name is required").max(120, "Artist name is too long"),
-	genre: z.string().min(1, "Please select a genre"),
-	youtubeUrl: z.string().min(1, "Please enter a YouTube URL"),
-	challengeSelection: z.string(),
-	description: z.string(),
-});
-
-type SubmitTrackFormValues = z.infer<typeof submitTrackSchema>;
-
-const DEFAULT_VALUES: SubmitTrackFormValues = {
-	trackTitle: "",
-	artistName: "",
-	genre: "",
-	challengeSelection: "",
-	youtubeUrl: "",
-	description: "",
-};
-
 export function SubmitTrackForm() {
+	const searchParams = useSearchParams();
+	const eventId = searchParams.get("eventId");
+
 	const initEventSearch = new EventSearchClass({
 		typeEvent: EEventSearchType.LIVE,
 	});
 	const { data: resDataEvent } = useGetEvents(initEventSearch);
 	const eventList = resDataEvent?.data?.events ?? [];
 
-	const handleSubmit = useCallback((values: SubmitTrackFormValues) => {
-		// TODO: gọi API submit track
-		void values;
-	}, []);
+	const { mutate: mutateSubmitTrack } = useMutateSubmitTrack();
+
+	const handleSubmit = useCallback(
+		(values: SubmitTrackFormValues) => {
+			mutateSubmitTrack(values);
+		},
+		[mutateSubmitTrack],
+	);
 
 	return (
 		<CustomForm<SubmitTrackFormValues>
 			onSubmit={handleSubmit}
 			schema={submitTrackSchema}
-			defaultValues={DEFAULT_VALUES}
+			defaultValues={eventId ? { eventId } : DEFAULT_VALUES_FORM}
 			className=" mt-6 flex flex-col gap-[18px]"
 		>
 			{form => (
@@ -98,7 +91,7 @@ export function SubmitTrackForm() {
 
 					<Controller<SubmitTrackFormValues>
 						control={form.control}
-						name="challengeSelection"
+						name="eventId"
 						render={({ field, fieldState }) => (
 							<Field className="relative mb-6" data-invalid={fieldState.invalid || undefined}>
 								<FieldLabel className="text-[13px] leading-[15px] font-semibold tracking-[0.8px] text-dark-primary uppercase">

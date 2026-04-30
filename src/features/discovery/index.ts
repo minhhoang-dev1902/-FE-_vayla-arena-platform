@@ -9,7 +9,7 @@ export { DiscoveryClass, type TTypeDiscovery } from "./models/class/discovery.cl
 export {
 	TracksSearchClass,
 	type TTypeSearchTracks,
-} from "./models/class/track.class";
+} from "./models/class/track-search.class";
 export type { IChallenge } from "./models/inteface/challenge.interface";
 export type { ITrack } from "./models/inteface/track.interface";
 export type { IDiscovery } from "./models/types/discovery.type";

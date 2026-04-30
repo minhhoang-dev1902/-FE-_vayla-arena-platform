@@ -1,5 +1,5 @@
 // src/share/storage/credential.storage.ts
-import type { UserProfile } from "@/features/auth/types/auth.type";
+import type { UserClass } from "@/features/auth/models/class/user.class";
 
 const KEYS = {
 	ACCESS_TOKEN: "access_token",
@@ -14,13 +14,15 @@ export const credentialStorage = {
 	getRefreshToken: () => localStorage.getItem(KEYS.REFRESH_TOKEN),
 	setRefreshToken: (token: string) => localStorage.setItem(KEYS.REFRESH_TOKEN, token),
 
-	getProfile: (): UserProfile | null => {
+	getProfile: (): UserClass | null => {
 		const raw = localStorage.getItem(KEYS.PROFILE);
 		return raw ? JSON.parse(raw) : null;
 	},
-	setProfile: (profile: UserProfile) => localStorage.setItem(KEYS.PROFILE, JSON.stringify(profile)),
+	setProfile: (profile: UserClass) => localStorage.setItem(KEYS.PROFILE, JSON.stringify(profile)),
 
-	// clearAll: () => {
-	//     Object.values(KEYS).forEach(key => localStorage.removeItem(key));
-	// },
+	clearAll: () => {
+		Object.values(KEYS).forEach(key => {
+			localStorage.removeItem(key);
+		});
+	},
 };
