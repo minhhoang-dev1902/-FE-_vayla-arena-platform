@@ -9,7 +9,7 @@ const AUTH_AND_WALLET_ROUTES: string[] = [NAVIGATE.SUBMIT_TRACK];
 
 export function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
-	const privyToken = request.cookies.get("privy-token");
+	const privyToken = request.cookies.get("privy-id-token");
 
 	const needsAuth =
 		AUTH_ONLY_ROUTES.some(r => pathname.startsWith(r)) ||
