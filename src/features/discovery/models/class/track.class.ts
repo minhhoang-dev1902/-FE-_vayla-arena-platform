@@ -15,6 +15,7 @@ export interface IPolicy {
 	remainingToday: number;
 }
 export class TrackClass {
+	id: string;
 	rank: number;
 	submissionId: string;
 	trackTitle: string;
@@ -32,6 +33,7 @@ export class TrackClass {
 	rejectionReason: string | null;
 	description: string | null;
 	constructor(data: Partial<TrackClass>) {
+		this.id = data.id ?? "";
 		this.rank = data.rank ?? 0;
 		this.submissionId = data.submissionId ?? "";
 		this.trackTitle = data.trackTitle ?? "";

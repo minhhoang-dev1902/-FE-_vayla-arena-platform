@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import type { SubmitTrackResponseClass } from "@/features/discovery/models/class/track.class";
 import type { SubmitTrackErrorData } from "@/features/discovery/utils/submit-track-result";
@@ -19,23 +20,24 @@ const FALLBACK_ERROR: SubmitTrackErrorData = {
 };
 
 export default function SubmitTrackPage() {
-	const [view, setView] = useState<View>("loading");
+	const router = useRouter();
+	const [view, setView] = useState<View>("success");
 	const [apiPending, setApiPending] = useState(false);
 	const [successResult, setSuccessResult] = useState<SubmitTrackResponseClass | null>(null);
 	const [errorData, setErrorData] = useState<SubmitTrackErrorData | null>(null);
 
-	// Ref so LoadingView's onComplete closure always sees the latest result
 	const successResultRef = useRef<SubmitTrackResponseClass | null>(null);
 	const pendingViewRef = useRef<"success" | "error">("success");
 
-	// Called the moment the user hits submit (mutation fires)
+	const handleBackToDiscovery = useCallback(() => {
+		router.push(NAVIGATE.DISCOVERY);
+	}, [router]);
+
 	const handlePending = useCallback(() => {
 		setApiPending(true);
 		setView("loading");
 	}, []);
 
-	// API resolved with success — keep LoadingView visible but flip loading→false
-	// so the bar completes, then onComplete switches to "success"
 	const handleSuccess = useCallback((result: SubmitTrackResponseClass) => {
 		pendingViewRef.current = "success";
 		successResultRef.current = result;
@@ -43,12 +45,10 @@ export default function SubmitTrackPage() {
 		setApiPending(false);
 	}, []);
 
-	// Bar finished → reveal the correct view (success or error)
 	const handleLoadingComplete = useCallback(() => {
 		setView(pendingViewRef.current);
 	}, []);
 
-	// API resolved with error — flip loading=false so bar completes, then show error
 	const handleError = useCallback((error: SubmitTrackErrorData) => {
 		pendingViewRef.current = "error";
 		setErrorData(error);
@@ -97,7 +97,7 @@ export default function SubmitTrackPage() {
 		<PageTransitionMotion>
 			<HeaderWithBackBtn
 				title="Submit Track"
-				onBtnBackClick={handleReset}
+				onBtnBackClick={handleBackToDiscovery}
 				description="Submit your track to the challenge"
 			/>
 			<div className="container">

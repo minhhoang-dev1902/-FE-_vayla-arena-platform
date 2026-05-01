@@ -5,6 +5,9 @@ import { usePathname } from "next/navigation";
 import { appMainNavItems, MainNavIcon } from "@/share/components/layout/nav/app-main-nav";
 import { cn } from "@/share/lib/utils";
 
+/** Màu tab đang active trong footer mobile (chuẩn thương hiệu) */
+export const APP_FOOTER_NAV_ACTIVE_COLOR_CLASS = "text-[#01A88E]" as const;
+
 export function AppShellFooterNav() {
 	const pathname = usePathname();
 
@@ -28,11 +31,15 @@ export function AppShellFooterNav() {
 								aria-current={active ? "page" : undefined}
 								className={cn(
 									"flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-lg px-1 py-1 text-[10px] font-medium transition-colors",
-									active ? "text-primary" : "text-muted-foreground hover:text-foreground",
+									active
+										? APP_FOOTER_NAV_ACTIVE_COLOR_CLASS
+										: "text-muted-foreground hover:text-foreground",
 								)}
 							>
-								<MainNavIcon icon={icon} className="size-5" />
-								<span className="truncate">{label}</span>
+								<span className="inline-flex shrink-0 text-inherit">
+									<MainNavIcon icon={icon} followForegroundColor className="size-5" />
+								</span>
+								<span className="truncate text-inherit">{label}</span>
 							</Link>
 						);
 					})}

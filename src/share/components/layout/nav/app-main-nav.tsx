@@ -21,6 +21,11 @@ function isLucideIcon(icon: AppMainNavIcon): icon is LucideIcon {
 	return typeof icon === "function";
 }
 
+function getRasterIconSrc(icon: Exclude<AppMainNavIcon, LucideIcon>): string {
+	if (typeof icon === "string") return icon;
+	return icon.src;
+}
+
 type MainNavIconProps = {
 	icon: AppMainNavIcon;
 	className?: string;
@@ -30,12 +35,50 @@ type MainNavIconProps = {
 	 * Lucide: `text-white`. Ảnh/SVG qua Image: `brightness-0 invert` (SVG `currentColor` qua `<img>` không ổn định).
 	 */
 	lightOnDark?: boolean;
+	/** Icon và label cùng màu theo `currentColor` của phần tử cha (vd. footer). SVG raster dùng CSS mask + `bg-current`. */
+	followForegroundColor?: boolean;
 };
 
-export function MainNavIcon({ icon, className, alt = "", lightOnDark }: MainNavIconProps) {
+export function MainNavIcon({
+	icon,
+	className,
+	alt = "",
+	lightOnDark,
+	followForegroundColor,
+}: MainNavIconProps) {
 	if (isLucideIcon(icon)) {
 		const Icon = icon;
-		return <Icon className={cn(lightOnDark && "text-white", className)} aria-hidden />;
+		return (
+			<Icon
+				className={cn(
+					lightOnDark && !followForegroundColor && "text-white",
+					followForegroundColor && "text-inherit",
+					className,
+				)}
+				aria-hidden
+			/>
+		);
+	}
+
+	const rasterSrc = getRasterIconSrc(icon);
+
+	if (followForegroundColor) {
+		return (
+			<span
+				aria-hidden
+				className={cn("inline-block shrink-0 bg-current text-inherit", className)}
+				style={{
+					WebkitMaskImage: `url(${rasterSrc})`,
+					maskImage: `url(${rasterSrc})`,
+					WebkitMaskSize: "contain",
+					maskSize: "contain",
+					WebkitMaskRepeat: "no-repeat",
+					maskRepeat: "no-repeat",
+					WebkitMaskPosition: "center",
+					maskPosition: "center",
+				}}
+			/>
+		);
 	}
 
 	return (

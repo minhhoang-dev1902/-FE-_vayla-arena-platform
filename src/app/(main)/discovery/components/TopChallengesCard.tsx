@@ -5,7 +5,7 @@ import type { IChallenge } from "@/features/discovery/models/inteface/challenge.
 import { Button } from "@/share/components/ui/button";
 import { CustomBadge } from "@/share/components/ui/customs/custom-badge/CustomBadge";
 import { ShadowCard } from "@/share/components/ui/customs/custom-cards/ShadowCard";
-import { UpNextChallengeCard } from "./UpNextChallengeCard";
+import { UpNextChallengesList } from "./UpNextChallengesList";
 
 interface ITopChallengesCardProps {
 	challenge: IChallenge;
@@ -51,13 +51,7 @@ export function TopChallengesCard(props: ITopChallengesCardProps) {
 				</Button>
 			</ShadowCard>
 
-			<div className="mt-12">
-				<p className="text-lg font-semibold text-dark-primary mt-8">Up Next</p>
-				<div className="flex flex-col gap-4 mt-2">
-					<UpNextChallengeCard challenge={challenge} />
-					<UpNextChallengeCard challenge={challenge} />
-				</div>
-			</div>
+			<UpNextChallengesList />
 		</div>
 	);
 }
