@@ -7,6 +7,9 @@ import {
 } from "../models/class/event-search.class";
 import { SubmitTrackResponseClass } from "../models/class/track.class";
 import {
+	MySubmissionsResponseClass,
+	type MySubmissionsSearchClass,
+	TrackDetailResponseClass,
 	type TrackSearchByEvent,
 	TrackSearchByEventResponseClass,
 	TrackSearchResponseClass,
@@ -60,5 +63,25 @@ export const discoveryApi = {
 			config: { data },
 		});
 		return new SubmitTrackResponseClass(response.data);
+	},
+
+	getMySubmissions: async (search: MySubmissionsSearchClass) => {
+		const url = DISCOVERY_ENDPOINTS.MY_SUBMISSIONS;
+		const response = await apiCommonService.get<
+			MySubmissionsResponseClass,
+			MySubmissionsSearchClass
+		>({
+			url: url,
+			config: { params: search },
+		});
+		return new MySubmissionsResponseClass(response.data);
+	},
+
+	getTrackDetail: async (id: string) => {
+		const url = DISCOVERY_ENDPOINTS.TRACK_DETAIL.format({ id });
+		const response = await apiCommonService.get<TrackDetailResponseClass, string>({
+			url: url,
+		});
+		return new TrackDetailResponseClass(response.data);
 	},
 };

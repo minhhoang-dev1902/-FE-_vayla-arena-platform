@@ -7,11 +7,13 @@ import {
 	EEventSearchType,
 	EventSearchClass,
 } from "@/features/discovery/models/class/event-search.class";
+import type { SubmitTrackResponseClass } from "@/features/discovery/models/class/track.class";
 import {
 	DEFAULT_VALUES_FORM,
 	type SubmitTrackFormValues,
 	submitTrackSchema,
 } from "@/features/discovery/models/schema/submit-track.schema";
+import type { SubmitTrackErrorData } from "@/features/discovery/utils/submit-track-result";
 import { Button } from "@/share/components/ui/button";
 import { PreviewYoutubeEmbed } from "@/share/components/ui/customs/custom-cards/PreviewYoutubeEmbed";
 import { CustomCheckBox } from "@/share/components/ui/customs/custom-checkbox/CustomCheckBox";
@@ -49,7 +51,13 @@ const genreItems = [
 	{ label: "Soundtrack / OST", value: "soundtrack-ost" },
 ];
 
-export function SubmitTrackForm() {
+interface SubmitTrackFormProps {
+	onPending?: () => void;
+	onSuccess: (result: SubmitTrackResponseClass) => void;
+	onError: (error: SubmitTrackErrorData) => void;
+}
+
+export function SubmitTrackForm({ onPending, onSuccess, onError }: SubmitTrackFormProps) {
 	const searchParams = useSearchParams();
 	const eventId = searchParams.get("eventId");
 
@@ -59,20 +67,35 @@ export function SubmitTrackForm() {
 	const { data: resDataEvent } = useGetEvents(initEventSearch);
 	const eventList = resDataEvent?.data?.events ?? [];
 
-	const { mutate: mutateSubmitTrack } = useMutateSubmitTrack();
+	const { mutate: mutateSubmitTrack, isPending } = useMutateSubmitTrack({
+		onSuccess: result => {
+			onSuccess(result);
+		},
+		onError: error => {
+			const axiosError = error as {
+				response?: { data?: { error?: { code?: string; message?: string } }; status?: number };
+			};
+			onError({
+				code: axiosError.response?.data?.error?.code ?? "UNKNOWN_ERROR",
+				message: axiosError.response?.data?.error?.message ?? "An unexpected error occurred.",
+				httpStatus: axiosError.response?.status,
+			});
+		},
+	});
 
 	const handleSubmit = useCallback(
-		(values: SubmitTrackFormValues) => {
+		async (values: SubmitTrackFormValues) => {
+			onPending?.();
 			mutateSubmitTrack(values);
 		},
-		[mutateSubmitTrack],
+		[mutateSubmitTrack, onPending],
 	);
 
 	return (
 		<CustomForm<SubmitTrackFormValues>
 			onSubmit={handleSubmit}
 			schema={submitTrackSchema}
-			defaultValues={eventId ? { eventId } : DEFAULT_VALUES_FORM}
+			defaultValues={eventId ? { ...DEFAULT_VALUES_FORM, eventId } : DEFAULT_VALUES_FORM}
 			className=" mt-6 flex flex-col gap-[18px]"
 		>
 			{form => (
@@ -150,9 +173,10 @@ export function SubmitTrackForm() {
 
 					<Button
 						type="submit"
+						disabled={isPending}
 						className="mt-[8px] h-[58px] w-full rounded-[10px] bg-primary text-[15px] font-semibold text-primary-foreground"
 					>
-						Submit Track
+						{isPending ? "Submitting..." : "Submit Track"}
 					</Button>
 
 					<p className="text-[11px] text-cus-title-form leading-[16.5px] tracking-[0.55px] mt-[-10px] uppercase mx-auto">

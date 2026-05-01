@@ -1,6 +1,6 @@
 import { PAGINATION_DEFAULT } from "@/share/contants/pagination";
 import { BaseSearchListClass } from "@/share/models/class/base-search-list.class";
-import { TrackClass } from "./track.class";
+import { TrackClass, type TrackStatusEnum } from "./track.class";
 
 export type TTypeSearchTracks = "hot" | "new" | "ending-soon" | "";
 
@@ -76,6 +76,57 @@ export class TrackSearchByEventResponseClass {
 			submissions: newSubmissions,
 			pagination,
 		};
+		this.success = success;
+	}
+}
+
+export class MySubmissionsSearchClass extends BaseSearchListClass {
+	status: TrackStatusEnum | null;
+	constructor(data: Partial<MySubmissionsSearchClass>) {
+		super(data);
+		this.offset = data.offset ?? PAGINATION_DEFAULT.OFFSET;
+		this.limit = data.limit ?? PAGINATION_DEFAULT.LIMIT;
+		this.status = data.status || null;
+	}
+}
+
+export class MySubmissionsResponseClass {
+	success: boolean = false;
+	data: {
+		submissions: TrackClass[];
+	} = {
+		submissions: [],
+	};
+	constructor(response: Partial<MySubmissionsResponseClass>) {
+		const { success, data } = response ?? {};
+		if (!success || !data) {
+			this.success = false;
+			this.data = {
+				submissions: [],
+			};
+			return;
+		}
+		const { submissions } = data ?? {};
+		const newSubmissions = submissions ? submissions.map(item => new TrackClass(item)) : [];
+		this.data = {
+			submissions: newSubmissions,
+		};
+		this.success = success;
+	}
+}
+
+export class TrackDetailResponseClass {
+	success: boolean = false;
+	data: TrackClass = new TrackClass({});
+
+	constructor(response: Partial<TrackDetailResponseClass>) {
+		const { success, data } = response ?? {};
+		if (!success || !data) {
+			this.success = false;
+			this.data = new TrackClass({});
+			return;
+		}
+		this.data = new TrackClass(data);
 		this.success = success;
 	}
 }

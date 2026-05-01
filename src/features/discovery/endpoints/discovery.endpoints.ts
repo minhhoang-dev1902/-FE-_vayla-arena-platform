@@ -4,4 +4,6 @@ export const DISCOVERY_ENDPOINTS = {
 	EVENTS_LIST: "/events",
 	EVENT_DETAIL: "/events/:{id}",
 	SUBMIT_TRACK: "/submissions",
+	MY_SUBMISSIONS: "/submissions/my/submissions",
+	TRACK_DETAIL: "/submissions/:{id}",
 };

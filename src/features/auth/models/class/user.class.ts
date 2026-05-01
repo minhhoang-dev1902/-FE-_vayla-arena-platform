@@ -32,6 +32,22 @@ export class UserClass {
 	}
 }
 
+export class RefreshTokenResponseClass {
+	success: boolean;
+	data: {
+		accessToken: string;
+		refreshToken: string;
+	} = {
+		accessToken: "",
+		refreshToken: "",
+	};
+
+	constructor(data: Partial<RefreshTokenResponseClass>) {
+		this.success = data.success ?? false;
+		this.data = data.data ?? { accessToken: "", refreshToken: "" };
+	}
+}
+
 export class LoginResponseClass {
 	success: boolean;
 	data: {

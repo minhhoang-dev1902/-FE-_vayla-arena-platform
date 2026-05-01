@@ -1,5 +1,12 @@
 import { getYoutubeThumbnailUrl } from "@/share/utils/youtube-thumbnail";
 
+export enum TrackStatusEnum {
+	PENDING = "pending",
+	APPROVED = "approved",
+	REJECTED = "rejected",
+	CLOSED = "closed",
+	NONE = "",
+}
 export interface IPolicy {
 	vaylaDeducted: number;
 	platformBalance: number;
@@ -20,6 +27,10 @@ export class TrackClass {
 	rankChange: string;
 	createdAt: string;
 	thumbnailUrl: string;
+	userId: string | null;
+	status: TrackStatusEnum;
+	rejectionReason: string | null;
+	description: string | null;
 	constructor(data: Partial<TrackClass>) {
 		this.rank = data.rank ?? 0;
 		this.submissionId = data.submissionId ?? "";
@@ -34,6 +45,10 @@ export class TrackClass {
 		this.createdAt = data.createdAt ?? "";
 		const thumbnailUrl = this.getThumbnailUrl(getYoutubeThumbnailUrl, "");
 		this.thumbnailUrl = thumbnailUrl;
+		this.userId = data.userId ?? null;
+		this.status = data.status ?? TrackStatusEnum.NONE;
+		this.rejectionReason = data.rejectionReason ?? null;
+		this.description = data.description ?? null;
 	}
 
 	getThumbnailUrl(fn: (youtubeUrl: string) => string | null, fallbackUrl: string = "") {
