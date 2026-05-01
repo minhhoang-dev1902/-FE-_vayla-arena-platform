@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import thumbnail from "@/assets/images/card_funding_web3.png";
 // import type { TFunding } from "@/features/fundings/models/type/funding.type";
 import { CountdownPill } from "@/share/components/countdown/countdown-pill";
-import { Button } from "@/share/components/ui/button";
+import { buttonVariants } from "@/share/components/ui/button";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { cn } from "@/share/lib/utils";
 import { parseOptionalEndDate } from "@/share/utils/countdown";
 
@@ -15,9 +17,18 @@ export type FundingSlidersProps = {
 		title: string;
 		end_date: string;
 	};
+	/** Ẩn nút sang trang Boost (khi đã ở `/boost`). */
+	hideParticipateCta?: boolean;
+	/** Đích khi bấm nút. Mặc định `/boost`. */
+	participateHref?: string;
 };
 
-export function FundingSliders({ className, funding_data }: FundingSlidersProps) {
+export function FundingSliders({
+	className,
+	funding_data,
+	hideParticipateCta,
+	participateHref = NAVIGATE.BOOST,
+}: FundingSlidersProps) {
 	const { title, end_date } = funding_data || {};
 	const end = parseOptionalEndDate(end_date, DEFAULT_ENDS_AT);
 
@@ -39,10 +50,18 @@ export function FundingSliders({ className, funding_data }: FundingSlidersProps)
 				</div>
 
 				<div className="flex justify-center absolute bottom-15 left-0 right-0">
-					<Button className="px-12 py-7 text-[1rem] font-semibold rounded-2xl ">
-						Participate in
-						<span className="">VAYLA Boost</span>
-					</Button>
+					{!hideParticipateCta ? (
+						<Link
+							href={participateHref}
+							className={cn(
+								buttonVariants({ variant: "default", size: "lg" }),
+								"rounded-2xl px-12 py-7 text-[1rem] font-semibold",
+							)}
+						>
+							Participate in
+							<span className="">VAYLA Boost</span>
+						</Link>
+					) : null}
 				</div>
 			</div>
 		</div>

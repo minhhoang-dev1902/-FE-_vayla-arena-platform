@@ -7,6 +7,7 @@ import discoveryIcon from "@/assets/icons/discovery-icon.svg";
 import fundingIcon from "@/assets/icons/funding-icon.svg";
 import homeIcon from "@/assets/icons/home-icon.svg";
 import voteIcon from "@/assets/icons/vote-icon.svg";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { cn } from "@/share/lib/utils";
 
 export type AppMainNavIcon = LucideIcon | StaticImageData | string;
@@ -94,8 +95,8 @@ export function MainNavIcon({
 }
 
 export const appMainNavItems: readonly AppMainNavItem[] = [
-	{ href: "/home", label: "Home", icon: homeIcon },
-	{ href: "/funding", label: "Funding", icon: fundingIcon },
+	{ href: NAVIGATE.HOME, label: "Home", icon: homeIcon },
+	{ href: NAVIGATE.BOOST, label: "Boost", icon: fundingIcon },
 	{ href: "/vote", label: "Vote", icon: voteIcon },
 	{ href: "/discovery", label: "Discovery", icon: discoveryIcon },
 ];

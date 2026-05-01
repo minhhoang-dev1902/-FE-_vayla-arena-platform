@@ -2,6 +2,7 @@
 
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import imgChallengeThumnail from "@/assets/images/challenge-thumnails.png";
 import { FUNDING_DATA_MOCK } from "@/features/fundings/datas/funding_datas";
@@ -15,6 +16,7 @@ import { CustomEmpty } from "@/share/components/ui/customs/custom-fallback/Custo
 import { RevealMotion } from "@/share/components/ui/customs/custom-motion/RevealMotion";
 import { CustomSkeletonSwapper } from "@/share/components/ui/customs/custom-skeleton/CustomSkeletonSwapper";
 import { CustomScrollView } from "@/share/components/ui/customs/ScrollView";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { BootsCard } from "./component/BootsCard";
 
 export type BoostTabProps = {
@@ -23,6 +25,7 @@ export type BoostTabProps = {
 };
 
 export const BoostTab = ({ listQuery: listQueryProp }: BoostTabProps) => {
+	const router = useRouter();
 	const [fallbackQuery] = useState(() => new FundingListQueryClass({}));
 	const listQuery = listQueryProp ?? fallbackQuery;
 
@@ -86,7 +89,11 @@ export const BoostTab = ({ listQuery: listQueryProp }: BoostTabProps) => {
 							</p>
 						</div>
 					</div>
-					<Button className="w-full cursor-pointer rounded-[10px] bg-primary-button py-6 text-center text-base font-bold text-white transition-opacity hover:opacity-95 sm:text-lg">
+					<Button
+						type="button"
+						onClick={() => router.push(NAVIGATE.BOOST)}
+						className="w-full cursor-pointer rounded-[10px] bg-primary-button py-6 text-center text-base font-bold text-white transition-opacity hover:opacity-95 sm:text-lg"
+					>
 						Go to Boost
 					</Button>
 				</div>
