@@ -1,17 +1,64 @@
+"use client";
+
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 import imgChallengeThumnail from "@/assets/images/challenge-thumnails.png";
-import { FUNDING_LIST_MOCK } from "@/features/fundings/datas/funding_datas";
-import type { IFunding } from "@/features/fundings/models/interface/funding.interface";
+import { FUNDING_DATA_MOCK } from "@/features/fundings/datas/funding_datas";
+import { useGetFundingList } from "@/features/fundings/hooks/useGetFundingList";
+import {
+	FundingListQueryClass,
+	type FundingProjectClass,
+} from "@/features/fundings/models/class/funding-list.class";
 import { Button } from "@/share/components/ui/button";
+import { CustomEmpty } from "@/share/components/ui/customs/custom-fallback/CustomEmpty";
+import { RevealMotion } from "@/share/components/ui/customs/custom-motion/RevealMotion";
+import { CustomSkeletonSwapper } from "@/share/components/ui/customs/custom-skeleton/CustomSkeletonSwapper";
+import { CustomScrollView } from "@/share/components/ui/customs/ScrollView";
 import { BootsCard } from "./component/BootsCard";
 
-type BoostTabProps = {
-	funding_data?: IFunding[] | null;
+export type BoostTabProps = {
+	/** Share cùng instance với trang chủ / khu vực khác để React Query gộp request. */
+	listQuery?: FundingListQueryClass;
 };
-export const BoostTab = (props: BoostTabProps) => {
-	const { funding_data = FUNDING_LIST_MOCK } = props;
-	const fundingList = funding_data || FUNDING_LIST_MOCK;
+
+export const BoostTab = ({ listQuery: listQueryProp }: BoostTabProps) => {
+	const [fallbackQuery] = useState(() => new FundingListQueryClass({}));
+	const listQuery = listQueryProp ?? fallbackQuery;
+
+	const { data: resData, isPending } = useGetFundingList(listQuery);
+
+	const fundingList: FundingProjectClass[] =
+		resData?.data?.projects && resData.data.projects.length > 0
+			? resData.data.projects
+			: FUNDING_DATA_MOCK;
+
+	const revealKey = isPending
+		? "boost-pending"
+		: `boost-list-${fundingList.map(f => f.id).join("|")}`;
+
+	const showEmptyFallback =
+		!isPending && resData?.success === true && (resData.data.projects?.length ?? 0) === 0;
+
+	const listBody = (
+		<>
+			{isPending ? (
+				<CustomSkeletonSwapper count={3} variant="card" />
+			) : showEmptyFallback ? (
+				<CustomEmpty
+					title="No boosts yet"
+					description="Funding projects will appear here when available."
+					className="my-6 py-8"
+				/>
+			) : (
+				<div className="flex flex-col gap-4 mt-[10px]">
+					{fundingList.map(funding => (
+						<BootsCard key={funding.id} funding={funding} />
+					))}
+				</div>
+			)}
+		</>
+	);
 
 	return (
 		<div>
@@ -49,15 +96,13 @@ export const BoostTab = (props: BoostTabProps) => {
 				<div className="flex items-center justify-between">
 					<p className="text-lg font-bold text-black">Boost List</p>
 					<p className="flex items-center text-text-link">
-						View All <ChevronRight className="w-4 h-4" />
+						View All <ChevronRight className="size-4" />
 					</p>
 				</div>
 
-				<div className="flex flex-col gap-4 mt-[10px]">
-					{fundingList.map(funding => (
-						<BootsCard key={funding.id} funding={funding} />
-					))}
-				</div>
+				<RevealMotion triggerKey={revealKey}>
+					<CustomScrollView>{listBody}</CustomScrollView>
+				</RevealMotion>
 			</div>
 		</div>
 	);

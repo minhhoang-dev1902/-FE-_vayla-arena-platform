@@ -1,9 +1,10 @@
 "use client";
 
 import { usePrivy } from "@privy-io/react-auth";
-import { useEffect } from "react";
-import { FUNDING_LIST_MOCK } from "@/features/fundings/datas/funding_datas";
-import type { IFunding } from "@/features/fundings/models/interface/funding.interface";
+import { useEffect, useMemo } from "react";
+import { FUNDING_DATA_MOCK } from "@/features/fundings/datas/funding_datas";
+import { useGetFundingList } from "@/features/fundings/hooks/useGetFundingList";
+import { FundingListQueryClass } from "@/features/fundings/models/class/funding-list.class";
 import { DiscoverySliders } from "@/features/home/components/hero-sliders/DiscoverySliders";
 import { FundingSliders } from "@/features/home/components/hero-sliders/FundingSliders";
 import { VoteOnTrendsSliders } from "@/features/home/components/hero-sliders/VoteOnTrendsSliders";
@@ -18,7 +19,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/share/components/ui/
 export default function HomePage() {
 	const tab = 0;
 	const defaultTab = tab === 0 ? "home" : "discovery";
-	const funding_data: IFunding = FUNDING_LIST_MOCK[0];
+	const boostListQuery = useMemo(() => new FundingListQueryClass({}), []);
+	const { data: boostListing } = useGetFundingList(boostListQuery);
+	const fundingHero = boostListing?.data.projects[0] ?? FUNDING_DATA_MOCK[0];
 
 	const { getAccessToken } = usePrivy();
 	useEffect(() => {
@@ -32,7 +35,7 @@ export default function HomePage() {
 		<div>
 			<CustomSlider
 				slides={[
-					<FundingSliders key={1} funding_data={funding_data} />,
+					<FundingSliders key={1} funding_data={fundingHero} />,
 					<DiscoverySliders key={2} />,
 					<VoteOnTrendsSliders key={3} />,
 				]}
@@ -68,7 +71,7 @@ export default function HomePage() {
 								<HomeTab />
 							</TabsContent>
 							<TabsContent value="boost">
-								<BoostTab />
+								<BoostTab listQuery={boostListQuery} />
 							</TabsContent>
 							<TabsContent value="discovery">
 								<DiscoveryTab />
