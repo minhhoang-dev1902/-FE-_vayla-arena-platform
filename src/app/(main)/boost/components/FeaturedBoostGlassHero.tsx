@@ -5,8 +5,7 @@ import Image from "next/image";
 import cardFundingFallback from "@/assets/images/card_funding_web3.png";
 import type { FundingProjectClass } from "@/features/fundings/models/class/funding-list.class";
 import { cn } from "@/share/lib/utils";
-
-const TEAL = "#00C4A7";
+import { BOOST_BRAND_TEAL } from "../constants";
 
 function formatDaysLeft(endIso: string): { label: string; ended: boolean } {
 	const end = parseISO(endIso);
@@ -47,7 +46,7 @@ export function FeaturedBoostGlassHero({
 	return (
 		<div
 			className={cn(
-				"relative flex min-h-[min(520px,calc(100dvh-220px))] w-full flex-col justify-center overflow-hidden rounded-[28px] px-5 py-10 shadow-lg sm:px-8 sm:py-12",
+				"relative flex min-h-[540px] w-full flex-col justify-center overflow-hidden rounded-[28px] px-5 py-10 shadow-lg sm:px-8 sm:py-12",
 				className,
 			)}
 		>
@@ -60,29 +59,27 @@ export function FeaturedBoostGlassHero({
 				<div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/35" />
 			</div>
 
-			<div className="relative z-10 mx-auto w-full max-w-[440px]">
+			<div className="relative z-10 mx-auto w-full max-w-[295px]">
 				<div
-					className="rounded-[26px] border border-white/[0.22] px-7 py-8 shadow-[0_28px_64px_-12px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
+					className="rounded-[26px] border border-white/[0.22] p-[25px] shadow-[0_28px_64px_-12px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
 					style={{ backgroundColor: "rgba(8,15,22,0.42)" }}
 				>
 					{showFeaturedBadge ? (
-						<span
-							className="inline-flex rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em]"
-							style={{ backgroundColor: TEAL, color: "#0d1b1b" }}
-						>
+						<span className="inline-flex rounded-full px-3 py-1.5 text-[10px] text-[#0F172A] font-semibold uppercase tracking-[1px] bg-[#00D1C1]">
 							FEATURED
 						</span>
 					) : null}
 
-					<h2 className="mt-6 text-[1.65rem] font-bold leading-tight tracking-tight text-white sm:text-[1.85rem]">
+					<p className="mt-5 text-[32px] font-bold leading-tight tracking-tight text-white sm:text-[1.85rem]">
 						{funding.title}
-					</h2>
-					<p className="mt-3 max-w-[32ch] text-[15px] leading-relaxed text-white/92">
+					</p>
+					<p className="mt-3 text-[13px] leading-[21px] text-white/92 tracking-[1px] font-normal">
 						{subtitleForFunding(funding)}
 					</p>
 
-					<div className="mt-8 flex flex-wrap items-center justify-between gap-3">
-						<span className="text-[15px] font-bold tabular-nums" style={{ color: TEAL }}>
+					{/* Progress */}
+					<div className="mt-11 flex flex-wrap items-center justify-between gap-3">
+						<span className="text-[16px] font-bold tabular-nums text-cus-progress italic">
 							{pctFunded}% Funded
 						</span>
 						<span
@@ -98,7 +95,7 @@ export function FeaturedBoostGlassHero({
 							className="h-full rounded-full transition-[width] duration-500 ease-out"
 							style={{
 								width: `${pctFunded}%`,
-								backgroundColor: TEAL,
+								backgroundColor: BOOST_BRAND_TEAL,
 							}}
 						/>
 					</div>
@@ -107,8 +104,8 @@ export function FeaturedBoostGlassHero({
 						type="button"
 						disabled={days.ended}
 						onClick={onJoinProject}
-						className="mt-10 w-full rounded-2xl py-4 text-[16px] font-bold text-[#08221c] transition-opacity hover:opacity-95 disabled:pointer-events-none disabled:opacity-40"
-						style={{ backgroundColor: TEAL }}
+						className="mt-10 w-full rounded-2xl py-4 text-[16px] font-bold text-white transition-opacity hover:opacity-95 disabled:pointer-events-none disabled:opacity-40"
+						style={{ backgroundColor: BOOST_BRAND_TEAL }}
 					>
 						{days.ended ? "Funding closed" : "Join Project"}
 					</button>

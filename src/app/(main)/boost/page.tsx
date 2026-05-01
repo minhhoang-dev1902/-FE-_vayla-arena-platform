@@ -16,10 +16,11 @@ import { RevealMotion } from "@/share/components/ui/customs/custom-motion/Reveal
 import { CustomSkeletonSwapper } from "@/share/components/ui/customs/custom-skeleton/CustomSkeletonSwapper";
 import { CustomScrollView } from "@/share/components/ui/customs/ScrollView";
 import { NAVIGATE } from "@/share/contants/navigate";
+import { BoostCuratedFansSection } from "./components/BoostCuratedFansSection";
+import { BoostHowFundingWorksSection } from "./components/BoostHowFundingWorksSection";
+import { BoostPlatformIntroSection } from "./components/BoostPlatformIntroSection";
+import { BoostWhyJoinSection } from "./components/BoostWhyJoinSection";
 import { FeaturedBoostGlassHero } from "./components/FeaturedBoostGlassHero";
-
-const _boostListScrollClass =
-	"min-h-0 max-h-[min(560px,calc(100dvh-300px))] flex flex-col gap-4 mt-4";
 
 export default function BoostPage() {
 	const router = useRouter();
@@ -56,34 +57,41 @@ export default function BoostPage() {
 				onBtnBackClick={() => router.push(NAVIGATE.HOME)}
 			/>
 
-			<div className="container px-4 pb-10 pt-4">
-				{isPending ? (
-					<div
-						className="min-h-[min(520px,calc(100dvh-220px))] w-full animate-pulse rounded-[28px] bg-muted"
-						aria-hidden
-					/>
-				) : (
-					<FeaturedBoostGlassHero funding={hero} onJoinProject={scrollToBoostList} />
-				)}
+			<div className="bg-white container mt-5">
+				<div className="container px-4 pb-10">
+					{isPending ? (
+						<div
+							className="min-h-[min(520px,calc(100dvh-220px))] w-full animate-pulse rounded-[28px] bg-neutral-800"
+							aria-hidden
+						/>
+					) : (
+						<FeaturedBoostGlassHero funding={hero} onJoinProject={scrollToBoostList} />
+					)}
 
-				<div className="mt-10 scroll-mt-28" id="boost-list">
-					<p className="text-lg font-bold text-dark-primary">Boost list</p>
+					<BoostPlatformIntroSection />
+					<BoostCuratedFansSection />
+					<BoostWhyJoinSection />
+					<BoostHowFundingWorksSection />
 
-					<RevealMotion triggerKey={revealKey}>
-						<CustomScrollView>
-							{isPending ? (
-								<CustomSkeletonSwapper count={4} variant="card" />
-							) : showEmptyFallback ? (
-								<CustomEmpty
-									title="No boosts yet"
-									description="Funding projects will appear here when available."
-									className="my-8 py-10"
-								/>
-							) : (
-								fundingList.map(funding => <BootsCard key={funding.id} funding={funding} />)
-							)}
-						</CustomScrollView>
-					</RevealMotion>
+					<div className="mt-10 scroll-mt-28" id="boost-list">
+						<h2 className="text-lg font-bold text-white">Explore Projects</h2>
+
+						<RevealMotion triggerKey={revealKey}>
+							<CustomScrollView fadeFromClassName="from-black">
+								{isPending ? (
+									<CustomSkeletonSwapper count={4} variant="card" />
+								) : showEmptyFallback ? (
+									<CustomEmpty
+										title="No boosts yet"
+										description="Funding projects will appear here when available."
+										className="my-8 border-white/25 bg-neutral-950/55 py-10 [&>p:first-of-type]:text-white [&>p:last-of-type]:text-neutral-400"
+									/>
+								) : (
+									fundingList.map(funding => <BootsCard key={funding.id} funding={funding} />)
+								)}
+							</CustomScrollView>
+						</RevealMotion>
+					</div>
 				</div>
 			</div>
 		</PageTransitionMotion>
