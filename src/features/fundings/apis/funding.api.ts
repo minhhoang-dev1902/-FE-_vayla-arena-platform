@@ -1,6 +1,7 @@
 import { apiCommonService } from "@/share/services/api-common";
-import { FUNDING_ENDPOINTS } from "../endpoints/funding.endpoints";
+import { FUNDING_ENDPOINTS, fundingDetailPath } from "../endpoints/funding.endpoints";
 import {
+	FundingDetailResponseClass,
 	type FundingListQueryClass,
 	FundingListResponseClass,
 } from "../models/class/funding-list.class";
@@ -31,5 +32,13 @@ export const fundingApi = {
 			config: { params },
 		});
 		return new FundingListResponseClass(response.data);
+	},
+
+	/** GET `/funding/:id` — Boost detail */
+	getFundingById: async (payload: { id: string }) => {
+		const response = await apiCommonService.get<Partial<FundingDetailResponseClass>, unknown>({
+			url: fundingDetailPath(payload.id),
+		});
+		return new FundingDetailResponseClass(response.data ?? {});
 	},
 };

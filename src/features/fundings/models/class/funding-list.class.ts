@@ -82,11 +82,16 @@ export class FundingProjectClass extends BaseClass {
 	visibility: string = "";
 	editor_name: string | null = null;
 	creator_name: string = "";
+	/** GET `/funding/:id` — optional */
+	organizer_name: string = "";
 	raised_amount: number = 0;
 	target_amount: number = 0;
 	last_edited_at: string | null = null;
 	cover_image_url: string | null = null;
 	settlement_status: string = "";
+	settlement_date: string | null = null;
+	min_contribution: number | null = null;
+	max_contribution_per_person: number | null = null;
 
 	constructor(data: Partial<FundingProjectClass> = {}) {
 		super();
@@ -106,11 +111,27 @@ export class FundingProjectClass extends BaseClass {
 		this.visibility = data.visibility ?? "";
 		this.editor_name = data.editor_name ?? null;
 		this.creator_name = data.creator_name ?? "";
+		this.organizer_name =
+			data.organizer_name === null || data.organizer_name === undefined
+				? ""
+				: String(data.organizer_name);
 		this.raised_amount = data.raised_amount ?? 0;
 		this.target_amount = data.target_amount ?? 0;
 		this.last_edited_at = data.last_edited_at ?? null;
 		this.cover_image_url = data.cover_image_url ?? null;
 		this.settlement_status = data.settlement_status ?? "";
+		this.settlement_date =
+			data.settlement_date === null || data.settlement_date === undefined
+				? null
+				: String(data.settlement_date);
+		this.min_contribution =
+			data.min_contribution === null || data.min_contribution === undefined
+				? null
+				: Number(data.min_contribution);
+		this.max_contribution_per_person =
+			data.max_contribution_per_person === null || data.max_contribution_per_person === undefined
+				? null
+				: Number(data.max_contribution_per_person);
 	}
 
 	static toResponse(data: Partial<FundingProjectClass>[] = []): FundingProjectClass[] {
@@ -141,5 +162,24 @@ export class FundingListResponseClass {
 	constructor(response: Partial<FundingListResponseClass> = {}) {
 		this.success = response.success ?? false;
 		this.data = new FundingListDataClass(response.data ?? {});
+	}
+}
+
+/** `data` trong `{ success, data }` của GET `/funding/:id`. */
+export class FundingDetailDataClass {
+	project: FundingProjectClass = new FundingProjectClass({});
+
+	constructor(data: Partial<{ project: Partial<FundingProjectClass> }> = {}) {
+		this.project = new FundingProjectClass(data.project ?? {});
+	}
+}
+
+export class FundingDetailResponseClass {
+	success: boolean = false;
+	data: FundingDetailDataClass = new FundingDetailDataClass({});
+
+	constructor(response: Partial<FundingDetailResponseClass> = {}) {
+		this.success = response.success ?? false;
+		this.data = new FundingDetailDataClass(response.data ?? {});
 	}
 }

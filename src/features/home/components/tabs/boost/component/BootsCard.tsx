@@ -2,9 +2,11 @@
 
 import { isValid, parseISO } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 import imgFundingThumbnailFallback from "@/assets/images/funding-thumnail-fallback.png";
 import type { FundingProjectClass } from "@/features/fundings/models/class/funding-list.class";
 import { CustomBadgeStatus } from "@/share/components/ui/customs/custom-badge/CustomBadgeStatus";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { useCountdown } from "@/share/hooks/use-countdown";
 import { formatCurrency } from "@/share/utils/number-utils";
 
@@ -59,51 +61,60 @@ export const BootsCard = ({ funding }: BootsCardProps) => {
 	const progressRaw = (funding.raised_amount / Math.max(funding.target_amount, 1)) * 100;
 	const progress = Math.min(Math.max(progressRaw, 0), 100);
 
+	const cover = funding.cover_image_url?.trim();
+	const isRemoteCover = Boolean(cover && /^https?:\/\//i.test(cover));
+
 	return (
-		<article className="overflow-hidden rounded-[20px] border border-[#D6D9E0] bg-white shadow-[0_8px_28px_rgba(11,18,32,0.08)]">
-			<div className="relative h-[192px] w-full">
-				<Image
-					src={imgFundingThumbnailFallback}
-					alt={funding.title}
-					fill
-					className="object-cover"
-					sizes="(max-width: 768px) 100vw, 720px"
-				/>
-				<CustomBadgeStatus label="LIVE" className="absolute top-4 right-3" />
-			</div>
-
-			<div className="p-5">
-				<p className="text-balance text-lg font-bold leading-tight text-dark-primary">
-					{funding.title}
-				</p>
-
-				<div className="mt-3">
-					<div className="flex items-center justify-between">
-						<p className="text-[11px] font-semibold text-cus-muted uppercase font-semibold">
-							Goal: {formatCurrency(funding.target_amount)}
-						</p>
-						<p className="text-[11px] font-semibold text-cus-muted uppercase font-semibold">
-							Time left
-						</p>
-					</div>
-
-					<div className="flex items-center justify-between mt-1">
-						<p className="text-sm font-semibold text-secondary-button">
-							Progress {Math.round(progress)}%
-						</p>
-						<p className="text-right text-sm font-semibold tabular-nums">
-							<BootsCardCountdown endIso={funding.end_date} />
-						</p>
-					</div>
-				</div>
-
-				<div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-[#DFE3E9]">
-					<div
-						className={`h-full bg-cus-progress ${progress >= 100 ? "rounded-full" : "rounded-l-full"}`}
-						style={{ width: `${progress}%` }}
+		<Link href={NAVIGATE.boostDetail(funding.id)} className="block">
+			<article className="overflow-hidden rounded-[20px] border border-[#D6D9E0] bg-white shadow-[0_8px_28px_rgba(11,18,32,0.08)] transition-opacity hover:opacity-[0.97] active:opacity-95">
+				<div className="relative h-[192px] w-full">
+					<Image
+						src={isRemoteCover ? (cover as string) : imgFundingThumbnailFallback}
+						alt={funding.title}
+						fill
+						className="object-cover"
+						sizes="(max-width: 768px) 100vw, 720px"
+						unoptimized={isRemoteCover}
+					/>
+					<CustomBadgeStatus
+						label="LIVE"
+						className="absolute top-4 right-3 py-0 h-[19px] px-[10px]"
 					/>
 				</div>
-			</div>
-		</article>
+
+				<div className="p-5">
+					<p className="text-balance text-lg font-bold leading-tight text-dark-primary">
+						{funding.title}
+					</p>
+
+					<div className="mt-3">
+						<div className="flex items-center justify-between">
+							<p className="text-[11px] font-semibold text-cus-muted uppercase font-semibold">
+								Goal: {formatCurrency(funding.target_amount)}
+							</p>
+							<p className="text-[11px] font-semibold text-cus-muted uppercase font-semibold">
+								Time left
+							</p>
+						</div>
+
+						<div className="flex items-center justify-between mt-1">
+							<p className="text-sm font-semibold text-secondary-button">
+								Progress {Math.round(progress)}%
+							</p>
+							<p className="text-right text-sm font-semibold tabular-nums">
+								<BootsCardCountdown endIso={funding.end_date} />
+							</p>
+						</div>
+					</div>
+
+					<div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-[#DFE3E9]">
+						<div
+							className={`h-full bg-cus-progress ${progress >= 100 ? "rounded-full" : "rounded-l-full"}`}
+							style={{ width: `${progress}%` }}
+						/>
+					</div>
+				</div>
+			</article>
+		</Link>
 	);
 };

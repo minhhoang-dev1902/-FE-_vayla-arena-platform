@@ -1,55 +1,59 @@
-import { FileText, type LucideIcon, ShieldCheck } from "lucide-react";
-import { BOOST_BRAND_TEAL, BOOST_CARD_MUTED_BG } from "../constants";
+import Image, { type StaticImageData } from "next/image";
+import accessIcon from "@/assets/icons/access-icon.svg";
+import walletIcon from "@/assets/icons/wallet-icon.svg";
+import { BOOST_CARD_MUTED_BG } from "../constants";
 
 type ReasonItemProps = {
 	title: string;
 	description: string;
-	icon: LucideIcon;
+	icon: StaticImageData;
+	iconWidth?: number;
+	iconHeight?: number;
 };
 
-function ReasonItem({ title, description, icon: Icon }: ReasonItemProps) {
+function ReasonItem({
+	title,
+	description,
+	icon,
+	iconWidth = 22,
+	iconHeight = 22,
+}: ReasonItemProps) {
 	return (
-		<li className="flex gap-4">
-			<div
-				className="flex size-11 shrink-0 items-center justify-center rounded-full"
-				style={{ backgroundColor: `${BOOST_BRAND_TEAL}1A` }}
-			>
-				<Icon
-					className="size-[22px] shrink-0"
-					style={{ color: BOOST_BRAND_TEAL }}
-					strokeWidth={2}
-					aria-hidden
-				/>
-			</div>
-			<div className="min-w-0 pt-0.5">
-				<h3 className="text-[16px] font-bold leading-tight text-neutral-950">{title}</h3>
-				<p className="mt-2 text-[14px] leading-relaxed text-neutral-700">{description}</p>
+		<li className="">
+			<Image src={icon} alt="" width={iconWidth} height={iconHeight} />
+
+			<div className="w-fit">
+				<p className="text-[18px] font-bold leading-[28px] text-[18px] text-[#181C1E] mt-[12px]">
+					{title}
+				</p>
+				<p className="mt-2 text-[14px] leading-[20px] text-[#3B4A46]">{description}</p>
 			</div>
 		</li>
 	);
 }
 
-/**
- * ”Why Join Boost?” — hai lý do với icon shield / file (mock Boost).
- */
 export function BoostWhyJoinSection() {
 	return (
 		<section
-			className="mt-6 rounded-[24px] px-6 py-8 shadow-[0_12px_40px_rgba(0,0,0,0.14)] sm:px-8"
+			className="mt-[52px] rounded-[24px] bg-[#F1F4F6] p-8 sm:px-8"
 			style={{ backgroundColor: BOOST_CARD_MUTED_BG }}
 			aria-labelledby="boost-why-heading"
 		>
-			<h2 id="boost-why-heading" className="text-xl font-bold text-neutral-950 sm:text-[1.35rem]">
+			<p id="boost-why-heading" className="text-[30px] font-bold leading-[36px] text-[#181C1E]">
 				Why Join Boost?
-			</h2>
+			</p>
 			<ul className="mt-8 space-y-8">
 				<ReasonItem
-					icon={ShieldCheck}
+					icon={accessIcon}
+					iconWidth={22}
+					iconHeight={21}
 					title="Exclusive Access"
 					description="Priority booking for exclusive parties and festivals available globally only to Boosters."
 				/>
 				<ReasonItem
-					icon={FileText}
+					icon={walletIcon}
+					iconWidth={19}
+					iconHeight={18}
 					title="Direct Support"
 					description="Your USDT goes directly to the production of your favorite festivals and artist world tours."
 				/>

@@ -1,10 +1,22 @@
 "use client";
 
 import { X } from "lucide-react";
+import Link from "next/link";
 import { useAppShellNav } from "@/share/components/layout/app-shell-nav-context";
 import { Button } from "@/share/components/ui/button";
 import { CustomButtonConnectWallet } from "@/share/components/ui/customs/custom-button/CustomButtonConnectWallet";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { cn } from "@/share/lib/utils";
+
+/** Mock menu — chữ teal đậm */
+const MENU_LINK_TEAL = "text-[#002B2B]";
+
+const mobilePrimaryLinks = [
+	{ href: NAVIGATE.DISCOVERY, label: "Discovery", inactive: false },
+	{ href: NAVIGATE.BOOST, label: "Web3.0 Boost", inactive: false },
+	{ href: NAVIGATE.MY_PAGE, label: "My Page", inactive: false },
+	{ href: "#", label: "Language", inactive: true },
+] as const satisfies ReadonlyArray<{ href: string; label: string; inactive: boolean }>;
 
 export function AppShellMobileNav() {
 	const { open, close, panelId } = useAppShellNav();
@@ -22,14 +34,14 @@ export function AppShellMobileNav() {
 
 			<aside
 				className={cn(
-					"fixed inset-y-0 right-0 z-[110] flex w-[min(100%,20rem)] flex-col border-l border-border bg-background pt-[env(safe-area-inset-top)] shadow-xl transition-transform duration-300 ease-out",
+					"fixed inset-y-0 right-0 z-[110] flex w-[min(100%,18rem)] flex-col pt-[env(safe-area-inset-top)] shadow-xl transition-transform duration-300 ease-out",
+					"bg-white",
 					open ? "translate-x-0" : "pointer-events-none translate-x-full",
 				)}
 				aria-hidden={!open}
 				id={panelId}
 			>
-				<div className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4">
-					<span className="text-sm font-semibold text-foreground">Menu</span>
+				<div className="flex shrink-0 justify-end px-4 pb-2 pt-3">
 					<Button
 						type="button"
 						variant="ghost"
@@ -38,25 +50,43 @@ export function AppShellMobileNav() {
 						onClick={close}
 					>
 						<span className="sr-only">Đóng</span>
-						<X className="size-4" />
+						<X className="size-4 text-neutral-700" />
 					</Button>
 				</div>
-				<nav
-					className="scrollbar-app flex flex-1 flex-col gap-0.5 overflow-y-auto p-3"
-					aria-label="Tài khoản và tiện ích"
-				>
-					<CustomButtonConnectWallet />
-					{/* {appSidebarNavItems.map(item => (
-						<Link
-							key={item.href}
-							href={item.href}
-							className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-							onClick={close}
-						>
-							{item.label}
-						</Link>
-					))} */}
-				</nav>
+
+				<div className="scrollbar-app flex flex-1 flex-col gap-4 overflow-y-auto px-5">
+					<nav className="flex flex-col pt-1" aria-label="Điều hướng chính">
+						{mobilePrimaryLinks.map(item =>
+							item.inactive ? (
+								<span
+									key={item.label}
+									className={cn(
+										"cursor-default py-3 text-[15px] font-medium opacity-70",
+										MENU_LINK_TEAL,
+									)}
+								>
+									{item.label}
+								</span>
+							) : (
+								<Link
+									key={item.href}
+									href={item.href}
+									className={cn(
+										"py-3 text-[15px] font-medium transition-opacity hover:opacity-80 active:opacity-70",
+										MENU_LINK_TEAL,
+									)}
+									onClick={close}
+								>
+									{item.label}
+								</Link>
+							),
+						)}
+					</nav>
+
+					<div className="rounded-[10px] border border-[#E2E8F0] bg-white p-3 shadow-sm">
+						<CustomButtonConnectWallet />
+					</div>
+				</div>
 			</aside>
 		</>
 	);

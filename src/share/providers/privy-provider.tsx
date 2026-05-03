@@ -1,6 +1,7 @@
 "use client";
 
 import { PrivyProvider } from "@privy-io/react-auth";
+import vaylaLogo from "@/assets/icons/vayla_symbol_icon.svg";
 
 const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "";
 
@@ -13,7 +14,7 @@ export default function PrivyProviders({ children }: { children: React.ReactNode
 				appearance: {
 					theme: "light",
 					accentColor: "#00A88E",
-					logo: "/vayla-logo.svg",
+					logo: vaylaLogo.src,
 					showWalletLoginFirst: false,
 				},
 				embeddedWallets: {
