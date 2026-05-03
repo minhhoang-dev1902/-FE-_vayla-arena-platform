@@ -39,7 +39,7 @@ export function DiscoverySliders({ className }: TProps) {
 				<div className="flex justify-center absolute bottom-15 left-0 right-0 mx-auto">
 					<Button
 						onClick={handleGoToDiscovery}
-						className="px-12 h-[60px] text-[1rem] font-semibold rounded-[16px] w-full bg-[#00C0A3]"
+						className="px-12 h-[60px] text-[1rem] font-semibold rounded-[16px] w-full bg-[#00C0A3] md:max-w-[340px]"
 					>
 						Go to VAYLA Discovery
 					</Button>

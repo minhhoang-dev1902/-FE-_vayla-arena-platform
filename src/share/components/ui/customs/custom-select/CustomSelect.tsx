@@ -61,7 +61,7 @@ export function CustomSelect(props: CustomSelectProps) {
 				onBlur={onBlur}
 				aria-invalid={ariaInvalid}
 				className={cn(
-					"w-full rounded-[10px] border-cus-border-input-focus px-[21px] pr-[18px] text-[15px] text-cus-muted-secondary data-[size=default]:h-[58px] data-[size=sm]:h-[58px] data-placeholder:text-cus-placeholder [&>svg]:-rotate-90 [&>svg]:text-[#6F7786] [&>svg:not([class*='size-'])]:size-8",
+					"w-full max-w-full rounded-[10px] border-cus-border-input-focus px-[21px] pr-[18px] text-[15px] text-cus-muted-secondary data-[size=default]:h-[58px] data-[size=sm]:h-[58px] data-placeholder:text-cus-placeholder md:max-w-lg [&>svg]:-rotate-90 [&>svg]:text-[#6F7786] [&>svg:not([class*='size-'])]:size-8",
 					className,
 					triggerClassName,
 				)}

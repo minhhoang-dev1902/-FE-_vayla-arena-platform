@@ -87,7 +87,7 @@ export default function DiscoveryPage() {
 				/>
 
 				<div className="mt-[40px]">
-					<Button className="w-full cursor-pointer rounded-xl bg-primary-button text[1rem] h-[60px] font-semibold">
+					<Button className="mx-auto h-[60px] w-full max-w-md cursor-pointer rounded-xl bg-primary-button font-semibold text-[1rem]">
 						<p className="text-white">Submit Track</p>
 					</Button>
 

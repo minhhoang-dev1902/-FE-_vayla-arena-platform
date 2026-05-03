@@ -2,6 +2,7 @@
 
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import imgChallengeThumnail from "@/assets/images/challenge-thumnails.png";
@@ -20,7 +21,6 @@ import { NAVIGATE } from "@/share/contants/navigate";
 import { BootsCard } from "./component/BootsCard";
 
 export type BoostTabProps = {
-	/** Share cùng instance với trang chủ / khu vực khác để React Query gộp request. */
 	listQuery?: FundingListQueryClass;
 };
 
@@ -46,7 +46,9 @@ export const BoostTab = ({ listQuery: listQueryProp }: BoostTabProps) => {
 	const listBody = (
 		<>
 			{isPending ? (
-				<CustomSkeletonSwapper count={3} variant="card" />
+				<div className="mx-auto mt-[10px] w-full max-w-[342px]">
+					<CustomSkeletonSwapper count={3} variant="card" />
+				</div>
 			) : showEmptyFallback ? (
 				<CustomEmpty
 					title="No boosts yet"
@@ -54,7 +56,7 @@ export const BoostTab = ({ listQuery: listQueryProp }: BoostTabProps) => {
 					className="my-6 py-8"
 				/>
 			) : (
-				<div className="flex flex-col gap-4 mt-[10px]">
+				<div className="mx-auto mt-[10px] flex w-max max-w-full flex-col gap-4 md:flex-row md:flex-wrap md:justify-center">
 					{fundingList.map(funding => (
 						<BootsCard key={funding.id} funding={funding} />
 					))}
@@ -64,10 +66,10 @@ export const BoostTab = ({ listQuery: listQueryProp }: BoostTabProps) => {
 	);
 
 	return (
-		<div>
+		<div className=" w-full mx-auto flex flex-col items-center">
 			<section
 				aria-label="Create and earn"
-				className="mt-[2rem] w-full rounded-xl bg-[#D7E5FC] p-6 shadow-lg shadow-black/5 sm:p-8"
+				className="mt-[2rem] w-full max-w-xl mx-auto rounded-xl bg-[#D7E5FC] p-6 shadow-lg shadow-black/5 sm:p-8"
 			>
 				<div className="flex flex-col gap-6">
 					<div className="flex flex-row items-start gap-4 sm:gap-5">
@@ -92,24 +94,28 @@ export const BoostTab = ({ listQuery: listQueryProp }: BoostTabProps) => {
 					<Button
 						type="button"
 						onClick={() => router.push(NAVIGATE.BOOST)}
-						className="w-full cursor-pointer rounded-[10px] bg-primary-button py-6 text-center text-base font-bold text-white transition-opacity hover:opacity-95 sm:text-lg"
+						className="mx-auto block w-full max-w-[340px] cursor-pointer rounded-[10px] bg-primary-button h-[50px] text-center text-base font-bold text-white transition-opacity hover:opacity-80"
 					>
 						Go to Boost
 					</Button>
 				</div>
 			</section>
 
-			<div className="mt-10">
-				<div className="flex items-center justify-between">
-					<p className="text-lg font-bold text-black">Boost List</p>
-					<p className="flex items-center text-text-link">
-						View All <ChevronRight className="size-4" />
-					</p>
-				</div>
+			<div className="mt-10 flex w-full justify-center">
+				<div className="inline-flex max-w-full min-w-0 flex-col gap-4">
+					<div className="flex shrink-0 items-center justify-between gap-4">
+						<p className="text-lg font-bold text-black">Boost List</p>
+						<Link href={NAVIGATE.BOOST} className="flex shrink-0 items-center text-text-link">
+							View All <ChevronRight className="size-4" />
+						</Link>
+					</div>
 
-				<RevealMotion triggerKey={revealKey}>
-					<CustomScrollView>{listBody}</CustomScrollView>
-				</RevealMotion>
+					<RevealMotion triggerKey={revealKey} className="block w-max max-w-full min-w-0 shrink-0">
+						<CustomScrollView rootClassName="block w-max max-w-full min-w-0">
+							{listBody}
+						</CustomScrollView>
+					</RevealMotion>
+				</div>
 			</div>
 		</div>
 	);

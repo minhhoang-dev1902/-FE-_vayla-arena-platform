@@ -40,12 +40,12 @@ export default function HomePage() {
 					<VoteOnTrendsSliders key={3} />,
 				]}
 			/>
-			<div className="px-6 mt-[2rem]">
+			<div className="mt-[2rem]">
 				<HomeNotice />
 
-				<div className="w-full mt-[1.5rem]">
+				<div className="w-full mt-[1.5rem]  mx-auto">
 					<Tabs defaultValue={defaultTab} key={defaultTab} className="mt-4 w-full">
-						<TabsList className="flex h-auto w-full px-1 py-6">
+						<TabsList className="flex h-auto w-full max-w-sm mx-auto px-1 py-6">
 							<TabsTrigger
 								value="home"
 								className="text-[15px] font-bold py-4 px-7 data-active:text-dark-primary text-muted-foreground"

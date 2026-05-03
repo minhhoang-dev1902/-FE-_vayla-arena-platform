@@ -1,7 +1,7 @@
 export function BoostPlatformIntroSection() {
 	return (
 		<section
-			className="rounded-[24px] p-8  bg-[#EBEEF0] mt-[22px]"
+			className="rounded-[24px] p-8 bg-[#EBEEF0] mt-[22px] max-w-2xl mx-auto"
 			aria-labelledby="boost-intro-heading"
 		>
 			<p className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#006A60]">

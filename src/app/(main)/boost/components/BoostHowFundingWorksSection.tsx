@@ -49,7 +49,7 @@ const _LINE_CSS = `${BOOST_BRAND_TEAL}B3` as const;
 export function BoostHowFundingWorksSection() {
 	return (
 		<section
-			className="mt-6 rounded-[24px] bg-[#F1F5F9] px-8 py-16 sm:px-8"
+			className="mt-6 rounded-[24px] bg-[#F1F5F9] px-8 py-16 sm:px-8 max-w-2xl mx-auto"
 			aria-labelledby="boost-how-heading"
 		>
 			<p

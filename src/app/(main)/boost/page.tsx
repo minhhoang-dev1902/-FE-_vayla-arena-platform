@@ -76,7 +76,7 @@ export default function BoostPage() {
 									className="my-8 border-white/25 bg-neutral-950/55 py-10 [&>p:first-of-type]:text-white [&>p:last-of-type]:text-neutral-400"
 								/>
 							) : (
-								<div className="flex flex-col gap-5">
+								<div className="flex flex-col gap-5 max-w-2xl mx-auto w-full">
 									{fundingList.map(funding => (
 										<BootsCard key={funding.id} funding={funding} />
 									))}

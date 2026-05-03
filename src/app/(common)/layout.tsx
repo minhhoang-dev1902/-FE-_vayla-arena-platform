@@ -9,7 +9,7 @@ export default function CommonLayout({ children }: { children: React.ReactNode }
 			<div className="relative flex min-h-dvh w-full flex-col">
 				<CommonHeader />
 
-				<div className="relative mx-auto flex w-full max-w-(--app-view-max-width,80rem) flex-1 flex-col pb-20 lg:px-4 lg:pb-3">
+				<div className="relative mx-auto flex w-full max-w-screen-xl flex-1 flex-col px-6 pb-20 lg:pb-3">
 					<main className="relative flex w-full flex-1 flex-col bg-background">{children}</main>
 				</div>
 

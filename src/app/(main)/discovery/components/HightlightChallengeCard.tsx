@@ -1,11 +1,11 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import CupIcon from "@/assets/icons/cup-icon.svg";
 import imgChallengeThumnailFallback from "@/assets/images/challenge-thumnails.png";
 import type { IChallenge } from "@/features/discovery/models/inteface/challenge.interface";
 import { Button } from "@/share/components/ui/button";
 import { CustomBadge } from "@/share/components/ui/customs/custom-badge/CustomBadge";
 import { formatEndsInDaysHours } from "@/share/utils/countdown";
-import { useRouter, useParams } from "next/navigation";
 
 interface IHightlightChallengeCardProps {
 	challenge: IChallenge;
@@ -24,7 +24,7 @@ export function HightlightChallengeCard({ challenge }: IHightlightChallengeCardP
 	};
 
 	return (
-		<div className="w-full rounded-[2rem] bg-hightlight-challenge-card px-6 py-7 shadow-[0_12px_26px_rgba(11,44,48,0.12)] mt-20">
+		<div className="w-full max-w-2xl mx-auto rounded-[2rem] bg-hightlight-challenge-card px-6 py-7 shadow-[0_12px_26px_rgba(11,44,48,0.12)] mt-20">
 			<div className="flex items-start gap-5">
 				<Image
 					src={imgChallengeThumnailFallback.src}
@@ -58,7 +58,10 @@ export function HightlightChallengeCard({ challenge }: IHightlightChallengeCardP
 
 			<div className="mt-4 flex items-center justify-between gap-5">
 				<p className="text-[12px] leading-none font-bold text-dark-secondary">{remain}</p>
-				<Button onClick={onExploreChallengeClick} className="h-[44px] min-w-[55%] rounded-[10px] bg-primary-button px-8 text-[0.875rem] font-bold text-white hover:bg-[#00ad95]">
+				<Button
+					onClick={onExploreChallengeClick}
+					className="h-[44px] min-w-[55%] rounded-[10px] bg-primary-button px-8 text-[0.875rem] font-bold text-white hover:bg-[#00ad95]"
+				>
 					Explore Challenge
 				</Button>
 			</div>

@@ -23,7 +23,7 @@ export default function MyPage() {
 			<HeaderWithBackBtn title="My Page" onBtnBackClick={() => router.push(NAVIGATE.HOME)} />
 
 			<div className="container px-4 pt-3">
-				<div className="w-full">
+				<div className="w-full max-w-2xl mx-auto">
 					<Tabs defaultValue="user" className="w-full">
 						<TabsList className="flex h-auto w-full gap-0 rounded-full bg-[#E5E7EB80] py-6">
 							<TabsTrigger value="user" className={myPageTabTriggerClass}>

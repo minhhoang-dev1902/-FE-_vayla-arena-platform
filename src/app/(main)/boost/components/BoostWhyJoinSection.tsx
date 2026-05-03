@@ -35,7 +35,7 @@ function ReasonItem({
 export function BoostWhyJoinSection() {
 	return (
 		<section
-			className="mt-[52px] rounded-[24px] bg-[#F1F4F6] p-8 sm:px-8"
+			className="mt-[52px] rounded-[24px] bg-[#F1F4F6] p-8 sm:px-8 max-w-2xl mx-auto"
 			style={{ backgroundColor: BOOST_CARD_MUTED_BG }}
 			aria-labelledby="boost-why-heading"
 		>

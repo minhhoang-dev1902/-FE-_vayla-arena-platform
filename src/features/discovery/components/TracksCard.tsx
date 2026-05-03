@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import trackCoverFallback from "@/assets/images/track-cover-fallback.png";
 import { Button } from "@/share/components/ui/button";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { getYoutubeThumbnailUrl } from "@/share/utils/youtube-thumbnail";
 import type { TrackClass } from "../models/class/track.class";
 
@@ -13,12 +15,18 @@ export type TracksCardProps = {
 };
 
 export function TracksCard({ track, onVote }: TracksCardProps) {
+	const router = useRouter();
 	const fallbackThumbnailUrl = trackCoverFallback.src;
 	const [thumbUrl, setThumbUrl] = useState(
 		() => getYoutubeThumbnailUrl(track.youtubeUrl, fallbackThumbnailUrl) ?? fallbackThumbnailUrl,
 	);
 
 	const alt = `${track.trackTitle} — YouTube thumbnail`;
+
+	const handleClickVote = () => {
+		router.push(NAVIGATE.VOTE_TRACK(track.submissionId));
+		onVote?.();
+	};
 	return (
 		<article className="flex gap-4 rounded-[1.25rem] bg-background-card p-3 shadow-sm sm:gap-5 sm:p-4 items-center">
 			<div className="relative shrink-0  sm:h-16 sm:w-16">
@@ -54,12 +62,13 @@ export function TracksCard({ track, onVote }: TracksCardProps) {
 							variant="outline"
 							type="button"
 							className=" text-[11px] shrink-0 rounded-[8px] bg-transparent border border-text-link text-text-link px-5 h-[25px] font-semibold"
+							onClick={() => router.push(`${NAVIGATE.DISCOVERY}/${track.eventId}`)}
 						>
 							View
 						</Button>
 						<Button
 							type="button"
-							onClick={onVote}
+							onClick={handleClickVote}
 							className=" text-[11px] shrink-0 rounded-[8px] bg-secondary-button px-5 h-[25px] font-semibold text-white hover:bg-secondary-button/80 active:bg-secondary-button/90"
 						>
 							Vote

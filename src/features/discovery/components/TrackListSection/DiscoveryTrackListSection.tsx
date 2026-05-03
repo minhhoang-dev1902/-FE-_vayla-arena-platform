@@ -9,7 +9,8 @@ import { CustomSkeletonSwapper } from "@/share/components/ui/customs/custom-skel
 import { CustomScrollView } from "@/share/components/ui/customs/ScrollView";
 import { NAVIGATE } from "@/share/contants/navigate";
 import { cn } from "@/share/lib/utils";
-import type { TrackClass, TTypeSearchTracks } from "../../models/class/track.class";
+import type { TrackClass } from "../../models/class/track.class";
+import type { TTypeSearchTracks } from "../../models/class/track-search.class";
 import { TracksCard } from "../TracksCard";
 
 interface IDiscoveryTrackListSectionProps {
@@ -20,7 +21,7 @@ interface IDiscoveryTrackListSectionProps {
 	isPending?: boolean;
 }
 const FILTERS: { id: TTypeSearchTracks; label: string }[] = [
-	{ id: "hot", label: "Hot" },
+	{ id: "hot", label: "Trending" },
 	{ id: "new", label: "New" },
 	{ id: "ending-soon", label: "Ending Soon" },
 ];
@@ -54,7 +55,7 @@ export function DiscoveryTrackListSection({
 							type="button"
 							onClick={() => onFilterChange(id)}
 							className={cn(
-								"h-[42px] rounded-lg px-5 text-sm font-bold transition-colors",
+								"h-[34px] rounded-lg px-5 text-sm font-bold transition-colors px-[30px]",
 								active
 									? "bg-secondary-button text-white shadow-sm"
 									: "border border-border bg-card text-[#64748b] hover:text-foreground dark:text-muted-foreground",

@@ -65,9 +65,9 @@ export const BootsCard = ({ funding }: BootsCardProps) => {
 	const isRemoteCover = Boolean(cover && /^https?:\/\//i.test(cover));
 
 	return (
-		<Link href={NAVIGATE.boostDetail(funding.id)} className="block">
-			<article className="overflow-hidden rounded-[20px] border border-[#D6D9E0] bg-white shadow-[0_8px_28px_rgba(11,18,32,0.08)] transition-opacity hover:opacity-[0.97] active:opacity-95">
-				<div className="relative h-[192px] w-full">
+		<Link href={NAVIGATE.boostDetail(funding.id)} className="block h-full">
+			<article className="flex h-full min-h-[350px] max-h-[452px] min-w-[342px] flex-col overflow-hidden rounded-[20px] border border-[#D6D9E0] bg-white shadow-[0_8px_28px_rgba(11,18,32,0.08)] transition-opacity hover:opacity-[0.97] active:opacity-95 md:max-w-[342px]">
+				<div className="relative h-[192px] w-full shrink-0">
 					<Image
 						src={isRemoteCover ? (cover as string) : imgFundingThumbnailFallback}
 						alt={funding.title}
@@ -78,23 +78,24 @@ export const BootsCard = ({ funding }: BootsCardProps) => {
 					/>
 					<CustomBadgeStatus
 						label="LIVE"
-						className="absolute top-4 right-3 py-0 h-[19px] px-[10px]"
+						className="absolute top-4 right-3 h-[19px] px-[10px] py-0"
 					/>
 				</div>
 
-				<div className="p-5">
-					<p className="text-balance text-lg font-bold leading-tight text-dark-primary">
+				<div className="flex min-h-0 flex-1 flex-col p-5">
+					<p
+						className="line-clamp-2 min-h-0 break-words text-lg font-bold leading-tight text-dark-primary"
+						title={funding.title}
+					>
 						{funding.title}
 					</p>
 
-					<div className="mt-3">
+					<div className="mt-3 flex shrink-0 flex-col">
 						<div className="flex items-center justify-between">
-							<p className="text-[11px] font-semibold text-cus-muted uppercase font-semibold">
+							<p className="text-[11px] font-semibold uppercase text-cus-muted">
 								Goal: {formatCurrency(funding.target_amount)}
 							</p>
-							<p className="text-[11px] font-semibold text-cus-muted uppercase font-semibold">
-								Time left
-							</p>
+							<p className="text-[11px] font-semibold uppercase text-cus-muted">Time left</p>
 						</div>
 
 						<div className="flex items-center justify-between mt-1">

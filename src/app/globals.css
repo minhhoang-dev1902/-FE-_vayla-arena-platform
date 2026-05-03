@@ -5,7 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-	--app-view-max-width: 80rem;
+	/* Align with Tailwind max-w-screen-xl (1280px) */
+	--app-view-max-width: 1280px;
 	--background: rgb(255, 255, 255);
 	--foreground: #c9ced5;
 	--card: rgb(255, 255, 255);
@@ -285,7 +286,27 @@
 	}
 }
 
+@keyframes home-notice-marquee {
+	to {
+		transform: translateX(-50%);
+	}
+}
+
 @layer utilities {
+	.animate-home-notice-marquee {
+		animation: home-notice-marquee 10s linear infinite;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.animate-home-notice-marquee {
+			animation: none;
+		}
+
+		.animate-home-notice-marquee > span:last-of-type {
+			display: none;
+		}
+	}
+
 	/** Thanh cuộn mảnh trong khối overflow (Chrome / Edge / Safari + Firefox). */
 	.scrollbar-app {
 		scrollbar-width: thin;
@@ -323,6 +344,16 @@
 		);
 	}
 
+	/** Ẩn thanh cuộn; nội dung vẫn cuộn được (wheel / touch / kéo). */
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+
 	.shadow-header {
 		box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.4);
 	}
@@ -333,7 +364,7 @@
 }
 
 .container {
-	@apply mx-auto max-w-[var(--app-view-max-width)] px-6;
+	@apply mx-auto w-full max-w-screen-xl px-6;
 }
 
 /* Keep muted token stable after imported/generated theme CSS. */

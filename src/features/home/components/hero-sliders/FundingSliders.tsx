@@ -55,7 +55,7 @@ export function FundingSliders({
 							href={participateHref}
 							className={cn(
 								buttonVariants({ variant: "default", size: "lg" }),
-								"rounded-2xl px-12 py-7 text-[1rem] font-semibold",
+								"rounded-2xl px-12 py-7 text-[1rem] font-semibold md:max-w-[340px] min-w-[340px]",
 							)}
 						>
 							Participate in

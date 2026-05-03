@@ -17,7 +17,7 @@ export function TopChallengesCard(props: ITopChallengesCardProps) {
 	return (
 		<div className="bg-[#f4f9fb] px-3 mt-6 pt-8 pb-20">
 			<p className="text-2xl font-semibold text-dark-primary">Start Listening</p>
-			<p className="text-sm text-[#222423]/80 mt-2">
+			<p className="mt-2 max-w-prose text-sm text-[#222423]/80">
 				Listen to featured tracks from this month's challenge
 			</p>
 
@@ -34,7 +34,7 @@ export function TopChallengesCard(props: ITopChallengesCardProps) {
 				</div>
 
 				<p className="text-xl font-semibold text-dark-primary mt-6">{challenge.name}</p>
-				<p className="text-sm text-[#222423]/80 mt-2">{challenge.description}</p>
+				<p className="mt-2 max-w-prose text-sm text-[#222423]/80">{challenge.description}</p>
 
 				<div className="flex items-center gap-2 mt-3">
 					<div className="flex items-center gap-2 px-1 py-1 bg-dark-primary/80 rounded-[5px] w-fit h-fit">
@@ -45,7 +45,7 @@ export function TopChallengesCard(props: ITopChallengesCardProps) {
 					</p>
 				</div>
 
-				<Button className="mt-7 h-[58px] w-full rounded-[18px] bg-gradient-to-r from-[#006a69] to-[#4bd8cc]  font-semibold text-white shadow-[0_10px_24px_rgba(0,106,105,0.35)] hover:opacity-95  text-[1rem] flex items-center justify-center">
+				<Button className="mx-auto mt-7 flex h-[58px] w-full max-w-md items-center justify-center rounded-[18px] bg-gradient-to-r from-[#006a69] to-[#4bd8cc] text-[1rem] font-semibold text-white shadow-[0_10px_24px_rgba(0,106,105,0.35)] hover:opacity-95">
 					<span className="mr-2">▶</span>
 					<span>Start Listening</span>
 				</Button>

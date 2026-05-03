@@ -179,8 +179,8 @@ export default function VoteTrackPage() {
 	return (
 		<main className="flex flex-col">
 			<HeaderWithBackBtn title="Voting Process" onBtnBackClick={handleVoteFormBack} />
-			<div className="container pt-[30px]">
-				<div className="container rounded-[19px] py-[20px] shadow-[0_8px_40px_0_rgba(0,0,0,0.10)]">
+			<div className="container w-full pt-[30px]">
+				<div className="w-full mx-auto rounded-[19px] py-[20px] shadow-[0_8px_40px_0_rgba(0,0,0,0.10)] container">
 					<p className="text-[16px] font-bold leading-[28px] text-[#0D1B1B]">Confirm Your Vote</p>
 
 					<div className="mt-4 flex items-center gap-[14px] rounded-[16px] bg-[#0035310D] px-[15px] py-[18px]">
@@ -289,7 +289,7 @@ export default function VoteTrackPage() {
 						type="button"
 						onClick={handleConfirm}
 						disabled={totalCost > PLATFORM_BALANCE || !(track?.submissionId?.trim() || track?.id)}
-						className="mx-auto mt-5 h-[56px] w-full rounded-[16px] bg-primary-button text-[16px] font-semibold text-white disabled:opacity-50"
+						className="mx-auto mt-5 h-[56px] w-full max-w-md rounded-[16px] bg-primary-button text-[16px] font-semibold text-white disabled:opacity-50"
 					>
 						Confirm Vote
 					</Button>
@@ -298,7 +298,7 @@ export default function VoteTrackPage() {
 						type="button"
 						variant="outline"
 						onClick={handleVoteFormBack}
-						className="mx-auto mt-5 h-[56px] w-full rounded-[16px] border border-[#878683] text-[16px] font-semibold text-[#55847F]"
+						className="mx-auto mt-5 h-[56px] w-full max-w-md rounded-[16px] border border-[#878683] text-[16px] font-semibold text-[#55847F]"
 					>
 						Cancel
 					</Button>
@@ -311,7 +311,7 @@ export default function VoteTrackPage() {
 							height={15}
 							className="mt-0.5 shrink-0"
 						/>
-						<p className="text-[12px] leading-[18px] text-[#787F89]">
+						<p className="max-w-prose text-[12px] leading-[18px] text-[#787F89]">
 							Note: Voting uses Platform Balance only. Confirmed votes are immutable and immediately
 							registered on-chain for the <span>{track?.eventName ?? "challenge"}</span> challenge.
 						</p>

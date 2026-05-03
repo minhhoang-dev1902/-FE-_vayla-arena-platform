@@ -101,11 +101,13 @@ export default function SubmitTrackPage() {
 				description="Submit your track to the challenge"
 			/>
 			<div className="container">
-				<SubmitTrackForm
-					onPending={handlePending}
-					onSuccess={handleSuccess}
-					onError={handleError}
-				/>
+				<div className="max-w-lg mx-auto">
+					<SubmitTrackForm
+						onPending={handlePending}
+						onSuccess={handleSuccess}
+						onError={handleError}
+					/>
+				</div>
 			</div>
 		</PageTransitionMotion>
 	);
