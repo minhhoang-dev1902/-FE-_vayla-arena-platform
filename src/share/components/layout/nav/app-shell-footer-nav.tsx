@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LAYOUT } from "@/constants/layout";
 import { appMainNavItems, MainNavIcon } from "@/share/components/layout/nav/app-main-nav";
 import { cn } from "@/share/lib/utils";
 
@@ -15,7 +16,8 @@ export function AppShellFooterNav() {
 		<div className="fixed inset-x-0 bottom-0 z-40 lg:hidden">
 			<div className="mx-auto w-full max-w-(--app-view-max-width,80rem) border-t border-border bg-background pb-[env(safe-area-inset-bottom)]">
 				<nav
-					className="flex h-14 items-stretch justify-around gap-1 px-1"
+					className="flex shrink-0 items-stretch justify-around gap-1 px-1"
+					style={{ height: LAYOUT.FOOTER_NAV_HEIGHT }}
 					aria-label="Điều hướng chính"
 				>
 					{appMainNavItems.map(({ href, label, icon }) => {

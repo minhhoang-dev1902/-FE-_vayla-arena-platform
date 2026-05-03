@@ -10,4 +10,5 @@ export const NAVIGATE = {
 	SUBMIT_TRACK_ERROR: "/discovery/submit-track/error",
 	MY_SUBMISSIONS: "/discovery/my-submission",
 	VOTE_TRACK: (id: string) => `/discovery/${encodeURIComponent(id)}/vote-track`,
+	TRACK: (id: string) => `/discovery/track/${encodeURIComponent(id)}`,
 };

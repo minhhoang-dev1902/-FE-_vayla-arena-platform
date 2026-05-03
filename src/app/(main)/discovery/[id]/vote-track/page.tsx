@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import infoIcon from "@/assets/icons/info-icon.svg";
 import imgTrackThumbnailFallback from "@/assets/images/track-cover-fallback.png";
+import { LAYOUT } from "@/constants/layout";
 import { useGetTrackDetailById } from "@/features/discovery/hooks/useGetTrackDetailById";
 import { useMutateTrackVote } from "@/features/voting/hooks/useMutateTrackVote";
 import {
@@ -59,6 +60,11 @@ const COST_PER_VOTE = 10;
 const NETWORK_FEE = 0.8;
 const MAX_VOTES = 10;
 const PLATFORM_BALANCE = 50;
+const HEADER_HEIGHT_PX = LAYOUT.HEADER_HEIGHT;
+const PADDING_TOP_WRAPPER_PX = 30;
+const PADDING_Y_CARD_PX = 20;
+const MAX_HEIGHT_INFO = 185;
+const MAX_HEIGHT_CARD = `calc(100dvh - ${HEADER_HEIGHT_PX}px - ${PADDING_TOP_WRAPPER_PX}px - ${PADDING_Y_CARD_PX}px - ${PADDING_Y_CARD_PX}px - ${MAX_HEIGHT_INFO}px)`;
 
 export default function VoteTrackPage() {
 	const router = useRouter();
@@ -179,131 +185,140 @@ export default function VoteTrackPage() {
 	return (
 		<main className="flex flex-col">
 			<HeaderWithBackBtn title="Voting Process" onBtnBackClick={handleVoteFormBack} />
-			<div className="container w-full pt-[30px]">
-				<div className="w-full mx-auto rounded-[19px] py-[20px] shadow-[0_8px_40px_0_rgba(0,0,0,0.10)] container">
+			<div className="container w-full" style={{ paddingTop: PADDING_TOP_WRAPPER_PX }}>
+				<div
+					className="mx-auto w-full rounded-[19px] shadow-[0_8px_40px_0_rgba(0,0,0,0.10)] container"
+					style={{ paddingTop: PADDING_Y_CARD_PX, paddingBottom: PADDING_Y_CARD_PX }}
+				>
 					<p className="text-[16px] font-bold leading-[28px] text-[#0D1B1B]">Confirm Your Vote</p>
 
-					<div className="mt-4 flex items-center gap-[14px] rounded-[16px] bg-[#0035310D] px-[15px] py-[18px]">
-						<CustomImage
-							src={track?.thumbnailUrl ?? ""}
-							fallback={imgTrackThumbnailFallback.src}
-							alt={track?.trackTitle ?? ""}
-							width={86}
-							height={86}
-							className="size-[86px] shrink-0 rounded-[12px] object-cover"
-						/>
-						<div className="min-w-0 flex-1">
-							<p className="truncate text-[18px] font-bold leading-[22.5px] text-dark-primary">
-								{track?.trackTitle ?? ""}
-							</p>
-							<p className="mt-0.5 truncate text-[14px] text-[#2A655FB2]">
-								{track?.artistName ?? ""}
-							</p>
-							<div className="mt-[13px] inline-flex items-center gap-2 rounded-[10px] bg-[#0068571A] px-[10px] py-1">
-								<span className="text-[10px] font-bold uppercase tracking-[0.1em] text-dark-secondary">
-									Total Votes
-								</span>
-								<span className="text-[12px] font-bold text-secondary-button">
-									{new Intl.NumberFormat("en-US").format(track?.voteCount ?? 0)}
-								</span>
+					<div className="scrollbar-hide overflow-y-auto" style={{ maxHeight: MAX_HEIGHT_CARD }}>
+						<div className="mt-4 flex items-center gap-[14px] rounded-[16px] bg-[#0035310D] px-[15px] py-[18px]">
+							<CustomImage
+								src={track?.thumbnailUrl ?? ""}
+								fallback={imgTrackThumbnailFallback.src}
+								alt={track?.trackTitle ?? ""}
+								width={86}
+								height={86}
+								className="size-[86px] shrink-0 rounded-[12px] object-cover"
+							/>
+							<div className="min-w-0 flex-1">
+								<p className="truncate text-[18px] font-bold leading-[22.5px] text-dark-primary">
+									{track?.trackTitle ?? ""}
+								</p>
+								<p className="mt-0.5 truncate text-[14px] text-[#2A655FB2]">
+									{track?.artistName ?? ""}
+								</p>
+								<div className="mt-[13px] inline-flex items-center gap-2 rounded-[10px] bg-[#0068571A] px-[10px] py-1">
+									<span className="text-[10px] font-bold uppercase tracking-[0.1em] text-dark-secondary">
+										Total Votes
+									</span>
+									<span className="text-[12px] font-bold text-secondary-button">
+										{new Intl.NumberFormat("en-US").format(track?.voteCount ?? 0)}
+									</span>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div className="mt-5 flex items-center justify-between">
-						<p className="text-[14px] text-dark-primary">Cost per vote</p>
-						<p className="text-[14px] font-bold text-dark-primary">
-							{COST_PER_VOTE} <span className="font-normal text-dark-primary">VAYLA</span>
+						<div className="mt-5 flex items-center justify-between">
+							<p className="text-[14px] text-dark-primary">Cost per vote</p>
+							<p className="text-[14px] font-bold text-dark-primary">
+								{COST_PER_VOTE} <span className="font-normal text-dark-primary">VAYLA</span>
+							</p>
+						</div>
+
+						<div className="mt-[10px] rounded-[10px] border border-[#0035310D] p-[21px]">
+							<div className="flex items-center justify-between">
+								<p className="text-[15px] font-bold text-dark-primary">Number of votes</p>
+								<span className="rounded-[10px] bg-[#FEF3C7] px-3 py-1 text-[12px] font-bold text-[#D97706]">
+									MAX {MAX_VOTES}
+								</span>
+							</div>
+
+							<div className="mt-4 flex items-center justify-between">
+								<div className="flex items-center gap-3">
+									<button
+										type="button"
+										onClick={handleDecrement}
+										disabled={voteCount <= 1}
+										className="flex size-[52px] items-center justify-center rounded-full bg-[#F1F4F6] text-[22px] font-bold text-dark-primary transition-opacity disabled:opacity-30"
+									>
+										−
+									</button>
+									<div className="flex size-[52px] items-center justify-center rounded-full bg-[#F1F4F6]">
+										<span className="text-[18px] font-bold text-dark-primary">{voteCount}</span>
+									</div>
+									<button
+										type="button"
+										onClick={handleIncrement}
+										disabled={voteCount >= MAX_VOTES}
+										className="flex size-[52px] items-center justify-center rounded-full bg-[#F1F4F6] text-[22px] font-bold text-dark-primary transition-opacity disabled:opacity-30"
+									>
+										+
+									</button>
+								</div>
+
+								<div className="text-right">
+									<p className="max-w-[60px] text-[11px] font-semibold uppercase leading-[12px] text-[#2A655F99]">
+										Votes Selected
+									</p>
+									<p className="mt-1 text-[28px] font-bold leading-[32px] text-dark-primary">
+										{voteCount}
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div className="mt-[10px] rounded-[12px] bg-[#F2F5F5] px-5 py-1">
+							<CostRow label="Vote Cost" amount={totalVoteCost} />
+							<CostRow label="Network Fee" amount={NETWORK_FEE} />
+							<div className="h-px bg-[#CBCBCB]" />
+							<CostRow label="Total Cost" amount={totalCost} bold />
+						</div>
+
+						<div className="mt-4 rounded-[10px] border border-[#E5EBEA] bg-white p-4">
+							<div className="flex items-center justify-between">
+								<div>
+									<p className="text-[11px] font-bold uppercase tracking-[0.14em] text-dark-primary">
+										Platform Balance
+									</p>
+									<div className="flex items-center gap-[4px] leading-[24px] text-dark-primary">
+										<span className="text-[20px] font-bold">{PLATFORM_BALANCE}</span>
+										<span className="text-[16px]">VAYLA</span>
+									</div>
+								</div>
+								<p className="text-[12px] text-[#2A655F99]">Available for voting</p>
+							</div>
+						</div>
+
+						<p className="mt-[10px] text-center text-[12px] font-semibold uppercase tracking-[1.1px] text-text-link">
+							Max {MAX_VOTES} Votes per Track
 						</p>
-					</div>
 
-					<div className="mt-[10px] rounded-[10px] border border-[#0035310D] p-[21px]">
-						<div className="flex items-center justify-between">
-							<p className="text-[15px] font-bold text-dark-primary">Number of votes</p>
-							<span className="rounded-[10px] bg-[#FEF3C7] px-3 py-1 text-[12px] font-bold text-[#D97706]">
-								MAX {MAX_VOTES}
-							</span>
-						</div>
+						<div className="flex flex-col md:flex-row items-center justify-center gap-[10px] mt-5">
+							<Button
+								type="button"
+								onClick={handleConfirm}
+								disabled={
+									totalCost > PLATFORM_BALANCE || !(track?.submissionId?.trim() || track?.id)
+								}
+								className="h-[56px] w-full max-w-md rounded-[16px] bg-primary-button text-[16px] font-semibold text-white disabled:opacity-50 max-w-[340px] min-w-[340px]"
+							>
+								Confirm Vote
+							</Button>
 
-						<div className="mt-4 flex items-center justify-between">
-							<div className="flex items-center gap-3">
-								<button
-									type="button"
-									onClick={handleDecrement}
-									disabled={voteCount <= 1}
-									className="flex size-[52px] items-center justify-center rounded-full bg-[#F1F4F6] text-[22px] font-bold text-dark-primary transition-opacity disabled:opacity-30"
-								>
-									−
-								</button>
-								<div className="flex size-[52px] items-center justify-center rounded-full bg-[#F1F4F6]">
-									<span className="text-[18px] font-bold text-dark-primary">{voteCount}</span>
-								</div>
-								<button
-									type="button"
-									onClick={handleIncrement}
-									disabled={voteCount >= MAX_VOTES}
-									className="flex size-[52px] items-center justify-center rounded-full bg-[#F1F4F6] text-[22px] font-bold text-dark-primary transition-opacity disabled:opacity-30"
-								>
-									+
-								</button>
-							</div>
-
-							<div className="text-right">
-								<p className="max-w-[60px] text-[11px] font-semibold uppercase leading-[12px] text-[#2A655F99]">
-									Votes Selected
-								</p>
-								<p className="mt-1 text-[28px] font-bold leading-[32px] text-dark-primary">
-									{voteCount}
-								</p>
-							</div>
+							<Button
+								type="button"
+								variant="outline"
+								onClick={handleVoteFormBack}
+								className="h-[56px] w-full max-w-md rounded-[16px] border border-[#878683] text-[16px] font-semibold text-[#55847F] max-w-[340px] min-w-[340px]"
+							>
+								Cancel
+							</Button>
 						</div>
 					</div>
 
-					<div className="mt-[10px] rounded-[12px] bg-[#F2F5F5] px-5 py-1">
-						<CostRow label="Vote Cost" amount={totalVoteCost} />
-						<CostRow label="Network Fee" amount={NETWORK_FEE} />
-						<div className="h-px bg-[#CBCBCB]" />
-						<CostRow label="Total Cost" amount={totalCost} bold />
-					</div>
-
-					<div className="mt-4 rounded-[10px] border border-[#E5EBEA] bg-white p-4">
-						<div className="flex items-center justify-between">
-							<div>
-								<p className="text-[11px] font-bold uppercase tracking-[0.14em] text-dark-primary">
-									Platform Balance
-								</p>
-								<div className="flex items-center gap-[4px] leading-[24px] text-dark-primary">
-									<span className="text-[20px] font-bold">{PLATFORM_BALANCE}</span>
-									<span className="text-[16px]">VAYLA</span>
-								</div>
-							</div>
-							<p className="text-[12px] text-[#2A655F99]">Available for voting</p>
-						</div>
-					</div>
-
-					<p className="mt-[10px] text-center text-[12px] font-semibold uppercase tracking-[1.1px] text-text-link">
-						Max {MAX_VOTES} Votes per Track
-					</p>
-
-					<Button
-						type="button"
-						onClick={handleConfirm}
-						disabled={totalCost > PLATFORM_BALANCE || !(track?.submissionId?.trim() || track?.id)}
-						className="mx-auto mt-5 h-[56px] w-full max-w-md rounded-[16px] bg-primary-button text-[16px] font-semibold text-white disabled:opacity-50"
-					>
-						Confirm Vote
-					</Button>
-
-					<Button
-						type="button"
-						variant="outline"
-						onClick={handleVoteFormBack}
-						className="mx-auto mt-5 h-[56px] w-full max-w-md rounded-[16px] border border-[#878683] text-[16px] font-semibold text-[#55847F]"
-					>
-						Cancel
-					</Button>
-
-					<div className="mt-5 flex items-start gap-2">
+					<div className="mt-5 flex items-start gap-2" style={{ maxHeight: MAX_HEIGHT_INFO }}>
 						<Image
 							src={infoIcon.src}
 							alt="info"

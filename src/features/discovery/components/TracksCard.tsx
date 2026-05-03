@@ -20,7 +20,6 @@ export function TracksCard({ track, onVote }: TracksCardProps) {
 	const [thumbUrl, setThumbUrl] = useState(
 		() => getYoutubeThumbnailUrl(track.youtubeUrl, fallbackThumbnailUrl) ?? fallbackThumbnailUrl,
 	);
-
 	const alt = `${track.trackTitle} — YouTube thumbnail`;
 
 	const handleClickVote = () => {
@@ -62,7 +61,7 @@ export function TracksCard({ track, onVote }: TracksCardProps) {
 							variant="outline"
 							type="button"
 							className=" text-[11px] shrink-0 rounded-[8px] bg-transparent border border-text-link text-text-link px-5 h-[25px] font-semibold"
-							onClick={() => router.push(`${NAVIGATE.DISCOVERY}/${track.eventId}`)}
+							onClick={() => router.push(NAVIGATE.TRACK(track.submissionId))}
 						>
 							View
 						</Button>

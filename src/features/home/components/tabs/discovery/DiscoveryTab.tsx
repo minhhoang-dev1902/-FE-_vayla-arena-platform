@@ -28,7 +28,7 @@ export function DiscoveryTab() {
 	const tracks_data = resData?.data.tracks ?? tracksFallBack;
 
 	return (
-		<div className="flex flex-col ">
+		<div className="flex flex-col	">
 			<section
 				aria-label="Create and earn"
 				className="w-full max-w-xl mx-auto rounded-xl bg-[#D6EEEB] p-6 sm:p-8 shadow-lg shadow-black/5 mt-[2rem]"
@@ -58,13 +58,12 @@ export function DiscoveryTab() {
 					</Button>
 				</div>
 			</section>
-
 			<DiscoveryTrackListSection
 				activeFilter={paramsSearch.type}
 				onFilterChange={handleFilter}
 				tracks={tracks_data}
 				isPending={isPending}
-				wrapperClassName="mt-10"
+				wrapperClassName="mt-10 mb-5"
 			/>
 		</div>
 	);

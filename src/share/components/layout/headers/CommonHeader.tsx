@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logoWithText from "@/assets/images/logo-with-text.png";
+import { LAYOUT } from "@/constants/layout";
 import {
 	appShellHeaderInnerClassName,
 	appShellHeaderNavClassName,
@@ -18,7 +19,7 @@ export function CommonHeader() {
 	const { close } = useAppShellNav();
 	const pathname = usePathname();
 	return (
-		<header className={appShellHeaderOuterClassName}>
+		<header className={appShellHeaderOuterClassName} style={{ height: LAYOUT.HEADER_HEIGHT }}>
 			<div className={appShellHeaderInnerClassName}>
 				<Link
 					href="/"
