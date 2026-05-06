@@ -406,7 +406,7 @@ export default function BoostDetailPage() {
 					<Button
 						type="button"
 						className="h-[56px] w-full max-w-[342px] rounded-2xl text-[16px] font-bold text-white bg-primary-button mx-auto"
-						onClick={() => router.push(NAVIGATE.boostParticipate(funding.id))}
+						onClick={() => router.push(NAVIGATE.boostParticipate.format({ id: funding.id }))}
 					>
 						Participate in Boost
 					</Button>

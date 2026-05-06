@@ -23,7 +23,7 @@ export function TracksCard({ track, onVote }: TracksCardProps) {
 	const alt = `${track.trackTitle} — YouTube thumbnail`;
 
 	const handleClickVote = () => {
-		router.push(NAVIGATE.VOTE_TRACK(track.submissionId));
+		router.push(NAVIGATE.VOTE_TRACK.format({ id: track.submissionId }));
 		onVote?.();
 	};
 	return (
@@ -61,7 +61,7 @@ export function TracksCard({ track, onVote }: TracksCardProps) {
 							variant="outline"
 							type="button"
 							className=" text-[11px] shrink-0 rounded-[8px] bg-transparent border border-text-link text-text-link px-5 h-[25px] font-semibold"
-							onClick={() => router.push(NAVIGATE.TRACK(track.submissionId))}
+							onClick={() => router.push(NAVIGATE.TRACK.format({ id: track.submissionId }))}
 						>
 							View
 						</Button>

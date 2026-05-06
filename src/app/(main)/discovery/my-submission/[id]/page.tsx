@@ -172,7 +172,7 @@ export default function SubmissionDetailPage() {
 						<Button
 							type="button"
 							className="h-[56px] min-w-[136px] max-w-[136px] rounded-[16px] bg-primary-button text-[15px] font-bold text-white transition-opacity active:opacity-80 shadow-[0_4px_6px_-4px_rgba(0,106,96,0.2),0_10px_15px_-3px_rgba(0,106,96,0.2)]"
-							onClick={() => router.push(`${NAVIGATE.DISCOVERY}/${id}/vote-track`)}
+							onClick={() => router.push(NAVIGATE.VOTE_TRACK.format({ id }))}
 						>
 							Vote Now
 						</Button>

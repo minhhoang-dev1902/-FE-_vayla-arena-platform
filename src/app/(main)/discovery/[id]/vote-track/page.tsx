@@ -302,7 +302,7 @@ export default function VoteTrackPage() {
 								disabled={
 									totalCost > PLATFORM_BALANCE || !(track?.submissionId?.trim() || track?.id)
 								}
-								className="h-[56px] w-full max-w-md rounded-[16px] bg-primary-button text-[16px] font-semibold text-white disabled:opacity-50 max-w-[340px] min-w-[340px]"
+								className="h-[56px] w-full max-w-md rounded-[16px] bg-primary-button text-[16px] font-semibold text-white disabled:opacity-50 max-w-[300px] min-w-[300px]"
 							>
 								Confirm Vote
 							</Button>
@@ -311,7 +311,7 @@ export default function VoteTrackPage() {
 								type="button"
 								variant="outline"
 								onClick={handleVoteFormBack}
-								className="h-[56px] w-full max-w-md rounded-[16px] border border-[#878683] text-[16px] font-semibold text-[#55847F] max-w-[340px] min-w-[340px]"
+								className="h-[56px] w-full max-w-md rounded-[16px] border border-[#878683] text-[16px] font-semibold text-[#55847F] max-w-[300px] min-w-[300px]"
 							>
 								Cancel
 							</Button>

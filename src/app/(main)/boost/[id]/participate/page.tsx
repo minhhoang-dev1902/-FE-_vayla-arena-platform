@@ -401,7 +401,7 @@ export default function BoostParticipatePage() {
 						type="button"
 						variant="outline"
 						className="h-[60px] w-full rounded-[16px] border-[#8B919D] text-[16px] font-semibold text-dark-primary "
-						onClick={() => router.push(NAVIGATE.boostDetail(funding.id))}
+						onClick={() => router.push(NAVIGATE.boostDetail.format({ id: funding.id }))}
 					>
 						Cancel & Return
 					</Button>

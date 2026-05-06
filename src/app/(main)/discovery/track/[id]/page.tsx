@@ -60,7 +60,6 @@ export default function SubmissionDetailPage() {
 	const { data: resTrackDetail, isLoading } = useGetTrackDetailById(id);
 	const submission = resTrackDetail?.data ?? null;
 
-	// Fetch other tracks in the same event
 	const { data: resEventTracks } = useGetTracksByEvent(
 		new TrackSearchByEvent({ eventId: submission?.eventId ?? "", limit: 4 }),
 	);
@@ -91,7 +90,7 @@ export default function SubmissionDetailPage() {
 
 	return (
 		<>
-			<HeaderWithBackBtn title="My Submissions" onBtnBackClick={handleBack} />
+			<HeaderWithBackBtn title="Track Detail" onBtnBackClick={handleBack} />
 			<main className="pt-[30px] pb-10 container">
 				<div className="relative h-[340px] w-full overflow-hidden bg-[#0A0F0E] rounded-[24px]">
 					<CustomImage

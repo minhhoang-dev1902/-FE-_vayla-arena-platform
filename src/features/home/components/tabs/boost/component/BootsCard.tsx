@@ -63,9 +63,8 @@ export const BootsCard = ({ funding }: BootsCardProps) => {
 
 	const cover = funding.cover_image_url?.trim();
 	const isRemoteCover = Boolean(cover && /^https?:\/\//i.test(cover));
-
 	return (
-		<Link href={NAVIGATE.boostDetail(funding.id)} className="block h-full">
+		<Link href={NAVIGATE.boostDetail.format({ id: funding.id })} className="block h-full">
 			<article className="flex h-full min-h-[350px] max-h-[452px] min-w-[342px] flex-col overflow-hidden rounded-[20px] border border-[#D6D9E0] bg-white shadow-[0_8px_28px_rgba(11,18,32,0.08)] transition-opacity hover:opacity-[0.97] active:opacity-95 md:max-w-[342px]">
 				<div className="relative h-[192px] w-full shrink-0">
 					<Image
