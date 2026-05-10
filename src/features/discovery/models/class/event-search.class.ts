@@ -44,6 +44,18 @@ export class EventsSearchResponseClass {
 		this.success = data.success ?? false;
 	}
 }
+
+export class EventsSearchResponseClassV2 {
+	success: boolean = false;
+	data: EventClass[] = [];
+	constructor(data: Partial<EventsSearchResponseClassV2>) {
+		this.success = data.success ?? false;
+		const events = data.data ?? [];
+		const newEvents = events ? events.map(item => new EventClass(item)) : [];
+		this.data = newEvents;
+	}
+}
+
 export class EventDetailResponseClass {
 	success: boolean = false;
 	data: EventClass = new EventClass({});

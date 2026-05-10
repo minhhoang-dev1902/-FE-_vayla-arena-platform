@@ -19,6 +19,7 @@ export default function ChallengeDetailPage() {
 		eventId: id as string,
 	});
 	const { data: res_data } = useGetTracksByEvent(initialPayload);
+
 	const { data: event_data } = useGetEventDetail(id as string);
 
 	const tracks = res_data?.data.submissions ?? [];

@@ -84,4 +84,28 @@ export const discoveryApi = {
 		});
 		return new TrackDetailResponseClass(response.data);
 	},
+
+	checkCanSubmit: async (eventId: string) => {
+		const url = DISCOVERY_ENDPOINTS.CHECK_CAN_SUBMIT.format({ eventId });
+		const response = await apiCommonService.get<any, string>({
+			url: url,
+		});
+		return response.data;
+	},
+
+	createSubmissionQuote: async (data: {
+		eventId: string;
+		selectedSource: string;
+		spendWalletAddress: string;
+	}) => {
+		const url = DISCOVERY_ENDPOINTS.SUBMISSION_QUOTE;
+		const response = await apiCommonService.post<
+			any,
+			{ eventId: string; selectedSource: string; spendWalletAddress: string }
+		>({
+			url: url,
+			config: { data },
+		});
+		return response.data;
+	},
 };

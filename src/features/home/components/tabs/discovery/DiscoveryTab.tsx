@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { TRACK_DATA_TEST } from "@/app/(common)/home/data_test";
 import imgChallengeThumnail from "@/assets/images/challenge-thumnails.png";
@@ -12,10 +13,11 @@ import {
 	type TTypeSearchTracks,
 } from "@/features/discovery/models/class/track-search.class";
 import { Button } from "@/share/components/ui/button";
+import { NAVIGATE } from "@/share/contants/navigate";
 
 export function DiscoveryTab() {
 	const tracksFallBack: TrackClass[] = TRACK_DATA_TEST.map(track => new TrackClass(track));
-
+	const router = useRouter();
 	const [paramsSearch, setParamsSearch] = useState<TracksSearchClass>(
 		new TracksSearchClass({ type: "hot" }),
 	);
@@ -26,6 +28,10 @@ export function DiscoveryTab() {
 		setParamsSearch(new TracksSearchClass({ type: filter }));
 	};
 	const tracks_data = resData?.data.tracks ?? tracksFallBack;
+
+	const handleGoToDiscovery = () => {
+		router.push(NAVIGATE.DISCOVERY);
+	};
 
 	return (
 		<div className="flex flex-col	">
@@ -53,7 +59,10 @@ export function DiscoveryTab() {
 							</p>
 						</div>
 					</div>
-					<Button className="mx-auto block w-full max-w-[340px] cursor-pointer rounded-[10px] bg-primary-button h-[50px] text-center text-base font-bold text-white transition-opacity hover:opacity-80">
+					<Button
+						className="mx-auto block w-full max-w-[340px] cursor-pointer rounded-[10px] bg-primary-button h-[50px] text-center text-base font-bold text-white transition-opacity hover:opacity-80"
+						onClick={handleGoToDiscovery}
+					>
 						Go to Discovery
 					</Button>
 				</div>

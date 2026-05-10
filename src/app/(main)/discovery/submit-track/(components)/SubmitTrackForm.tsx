@@ -2,6 +2,8 @@ import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { Controller } from "react-hook-form";
 import { useGetEvents } from "@/features/discovery/hooks/getEvents";
+import { useCallCheckSubmit } from "@/features/discovery/hooks/useCallCheckSubmit";
+import { useCreateQuoteSubmission } from "@/features/discovery/hooks/useCreateQuoteSubmission";
 import { useMutateSubmitTrack } from "@/features/discovery/hooks/useMutateSubmitTrack";
 import {
 	EEventSearchType,
@@ -83,12 +85,24 @@ export function SubmitTrackForm({ onPending, onSuccess, onError }: SubmitTrackFo
 		},
 	});
 
+	const { mutate: mutateCheckSubmit } = useCallCheckSubmit();
+	const { mutate: mutateCreateQuoteSubmission } = useCreateQuoteSubmission();
+
 	const handleSubmit = useCallback(
 		async (values: SubmitTrackFormValues) => {
+			const eventId = values.eventId;
+			mutateCheckSubmit(eventId);
+
+			mutateCreateQuoteSubmission({
+				eventId: eventId,
+				selectedSource: "linked_wallet",
+				spendWalletAddress: "0x55d398326f99059fF775485246999027B3197955",
+			});
+
 			onPending?.();
 			mutateSubmitTrack(values);
 		},
-		[mutateSubmitTrack, onPending],
+		[mutateSubmitTrack, onPending, mutateCheckSubmit, mutateCreateQuoteSubmission],
 	);
 
 	return (

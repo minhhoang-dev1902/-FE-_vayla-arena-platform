@@ -24,15 +24,6 @@ export function createMutationKey(key: string): MutationKey {
 	return [key];
 }
 
-/**
- * Factory: bind `key` + `fn` once, return a hook that only receives `props`.
- *
- * @example
- * export const useMutateSubmitTrack = createMutation<SubmitTrackResponseClass, SubmitTrackFormValues>({
- *   key: DISCOVERY_ENDPOINTS.SUBMIT_TRACK,
- *   fn: discoveryApi.submitTrack,
- * });
- */
 export function createMutation<TData, TPayload, TError = Error, TContext = unknown>({
 	key,
 	fn,

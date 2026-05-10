@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
 			},
 			{
 				protocol: "https",
+				hostname: "media.vayla-arena.com",
+				pathname: "/**",
+			},
+			{
+				protocol: "https",
 				hostname: "img.youtube.com",
 				pathname: "/**",
 			},

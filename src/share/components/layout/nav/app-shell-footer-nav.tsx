@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LAYOUT } from "@/constants/layout";
 import { appMainNavItems, MainNavIcon } from "@/share/components/layout/nav/app-main-nav";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { cn } from "@/share/lib/utils";
 
 /** Màu tab đang active trong footer mobile (chuẩn thương hiệu) */
@@ -22,8 +23,8 @@ export function AppShellFooterNav() {
 				>
 					{appMainNavItems.map(({ href, label, icon }) => {
 						const active =
-							href === "/"
-								? pathname === "/"
+							href === NAVIGATE.HOME
+								? pathname === NAVIGATE.HOME || pathname === "/"
 								: pathname === href || pathname.startsWith(`${href}/`);
 
 						return (

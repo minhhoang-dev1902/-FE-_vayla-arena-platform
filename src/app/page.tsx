@@ -1,8 +1,10 @@
-export default function Home() {
-	return (
-		<div>
-			<h1 className="text-3xl font-bold text-primary">Spon Live</h1>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
-		</div>
-	);
+import { redirect } from "next/navigation";
+
+import { NAVIGATE } from "@/share/contants/navigate";
+
+/**
+ * Landing route: send users to the main home experience (shell + tabs).
+ */
+export default function RootPage() {
+	redirect(NAVIGATE.HOME);
 }

@@ -6,4 +6,6 @@ export const DISCOVERY_ENDPOINTS = {
 	SUBMIT_TRACK: "/submissions",
 	MY_SUBMISSIONS: "/submissions/my/submissions",
 	TRACK_DETAIL: "/submissions/:{id}",
+	CHECK_CAN_SUBMIT: "/submissions/event/:eventId/can-submit",
+	SUBMISSION_QUOTE: "/submissions/quote",
 };

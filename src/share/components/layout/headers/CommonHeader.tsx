@@ -13,6 +13,7 @@ import {
 import { useAppShellNav } from "@/share/components/layout/app-shell-nav-context";
 import { appMainNavItems, MainNavIcon } from "@/share/components/layout/nav/app-main-nav";
 import { MobileNavTrigger } from "@/share/components/layout/nav/mobile-nav-trigger";
+import { NAVIGATE } from "@/share/contants/navigate";
 import { cn } from "@/share/lib/utils";
 
 export function CommonHeader() {
@@ -22,7 +23,7 @@ export function CommonHeader() {
 		<header className={appShellHeaderOuterClassName} style={{ height: LAYOUT.HEADER_HEIGHT }}>
 			<div className={appShellHeaderInnerClassName}>
 				<Link
-					href="/"
+					href={NAVIGATE.HOME}
 					className="relative z-10 min-w-0 shrink-0 text-lg font-semibold tracking-tight text-white"
 					onClick={close}
 				>
@@ -33,8 +34,8 @@ export function CommonHeader() {
 					<ul className="flex items-center gap-0.5 rounded-full bg-white/10 p-1">
 						{appMainNavItems.map(({ href, label, icon }) => {
 							const active =
-								href === "/"
-									? pathname === "/"
+								href === NAVIGATE.HOME
+									? pathname === NAVIGATE.HOME || pathname === "/"
 									: pathname === href || pathname.startsWith(`${href}/`);
 
 							return (

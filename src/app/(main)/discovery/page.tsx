@@ -58,8 +58,10 @@ export default function DiscoveryPage() {
 	const initEventSearch = new EventSearchClass({
 		typeEvent: EEventSearchType.LIVE,
 	});
-	const { data: resDataEvent } = useGetEvents(initEventSearch);
-	const challenge = toChallenge(resDataEvent?.data?.events?.[0] ?? CHALLENGE_DATA_TEST[0] ?? {});
+	const { data: _resDataEvent } = useGetEvents(initEventSearch);
+	const resDataEvent = _resDataEvent?.data?.events ?? [];
+
+	const challenge = toChallenge(resDataEvent?.[0] ?? CHALLENGE_DATA_TEST[0] ?? {});
 
 	const tracksFallBack: TrackClass[] = TRACK_DATA_TEST.map(track => new TrackClass(track));
 
@@ -68,6 +70,7 @@ export default function DiscoveryPage() {
 	);
 
 	const { data: resData, isPending } = useGetTracks(paramsSearch);
+
 	const tracksData = resData?.data.tracks ?? tracksFallBack;
 	const trackForSlide = tracksData[0] ?? null;
 

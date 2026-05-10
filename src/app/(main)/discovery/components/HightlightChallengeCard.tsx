@@ -24,7 +24,7 @@ export function HightlightChallengeCard({ challenge }: IHightlightChallengeCardP
 	};
 
 	return (
-		<div className="w-full max-w-2xl mx-auto rounded-[2rem] bg-hightlight-challenge-card px-6 py-7 shadow-[0_12px_26px_rgba(11,44,48,0.12)] mt-20">
+		<div className="w-full max-w-2xl mx-auto rounded-[20px] bg-hightlight-challenge-card px-6 py-7 shadow-[0_12px_26px_rgba(11,44,48,0.12)] mt-20">
 			<div className="flex items-start gap-5">
 				<Image
 					src={imgChallengeThumnailFallback.src}
