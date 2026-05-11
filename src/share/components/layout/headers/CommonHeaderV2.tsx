@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logoWithText from "@/assets/images/logo-with-text.png";
+import { useEffect, useState } from "react";
 import { LAYOUT } from "@/constants/layout";
 import {
 	appShellHeaderInnerClassName,
@@ -16,17 +15,46 @@ import { MobileNavTrigger } from "@/share/components/layout/nav/mobile-nav-trigg
 import { NAVIGATE } from "@/share/contants/navigate";
 import { cn } from "@/share/lib/utils";
 
-export function CommonHeader() {
+const COMMON_MAIN_SCROLL_ID = "common-layout-main-scroll";
+const HEADER_SOLID_AFTER_SCROLL_PX = 8;
+
+export function CommonHeaderV2() {
 	const { close } = useAppShellNav();
 	const pathname = usePathname();
 	const isHomeHeroOverlay = pathname === NAVIGATE.HOME || pathname === "/";
+	const [mainScrolled, setMainScrolled] = useState(false);
+
+	useEffect(() => {
+		if (!isHomeHeroOverlay) {
+			setMainScrolled(false);
+			return;
+		}
+
+		const main = document.getElementById(COMMON_MAIN_SCROLL_ID);
+		if (!main) return;
+
+		const update = () => {
+			setMainScrolled(main.scrollTop > HEADER_SOLID_AFTER_SCROLL_PX);
+		};
+
+		update();
+		main.addEventListener("scroll", update, { passive: true });
+		return () => main.removeEventListener("scroll", update);
+	}, [isHomeHeroOverlay]);
+
+	const homeBarSolid = isHomeHeroOverlay && mainScrolled;
 
 	return (
 		<header
 			className={cn(
-				"z-[60] w-full text-white",
+				"z-[60] w-full text-white transition-[background-color,border-color,backdrop-filter,-webkit-backdrop-filter] duration-300 ease-out",
 				isHomeHeroOverlay
-					? "pointer-events-none fixed inset-x-0 top-0 border-none bg-transparent shadow-none"
+					? cn(
+							"pointer-events-none fixed inset-x-0 top-0 shrink-0",
+							homeBarSolid
+								? "border-b border-white/15 bg-black/55 backdrop-blur-xl backdrop-saturate-150"
+								: "border-transparent bg-transparent shadow-none backdrop-blur-none",
+						)
 					: cn(appShellHeaderOuterClassName, "shrink-0"),
 			)}
 			style={{ height: LAYOUT.HEADER_HEIGHT }}
@@ -37,7 +65,9 @@ export function CommonHeader() {
 					className="relative z-10 min-w-0 shrink-0 text-lg font-semibold tracking-tight text-white"
 					onClick={close}
 				>
-					<Image src={logoWithText} alt="Vayla Arena" width={100} height={100} />
+					<span className="uppercase font-bold text-[20px] leading-[32px]">Vayla </span>
+
+					<span className="uppercase font-normal text-[20px] leading-[32px]">Arena</span>
 				</Link>
 
 				<nav className={appShellHeaderNavClassName} aria-label="Điều hướng chính">

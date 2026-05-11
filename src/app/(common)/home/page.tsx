@@ -32,14 +32,17 @@ export default function HomePage() {
 		fetchToken();
 	}, [getAccessToken]);
 	return (
-		<div>
-			<CustomSlider
-				slides={[
-					<FundingSliders key={1} funding_data={fundingHero} />,
-					<DiscoverySliders key={2} />,
-					<VoteOnTrendsSliders key={3} />,
-				]}
-			/>
+		<div className="container">
+			{/* Full-bleed hero under transparent fixed header (offsets parent px-6 in common layout) */}
+			<div className="relative -mx-6 w-[calc(100%+3rem)] shrink-0">
+				<CustomSlider
+					slides={[
+						<FundingSliders key={1} funding_data={fundingHero} />,
+						<DiscoverySliders key={2} />,
+						<VoteOnTrendsSliders key={3} />,
+					]}
+				/>
+			</div>
 			<div className="mt-[2rem]">
 				<HomeNotice />
 
